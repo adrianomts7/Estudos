@@ -1,18 +1,38 @@
-function zeroAesquerda(num){
-    return num >= 10 ? num : `0${num}`
-}
+function getDiaSemanaTexto(diaSemana){
+    let diaSemanaTexto
+   
+    switch (diaSemana){
+        case 0:
+            diaSemanaTexto = "Domingo"
+            break
+        case 1:
+            diaSemanaTexto = "Segunda-Feira"
+            break
+        case 2:
+            diaSemanaTexto = "Terça-Feira"
+            break
+        case 3:
+            diaSemanaTexto = "Quarta-Feira"
+            break
+        case 4:
+            diaSemanaTexto = "Quinta-Feira"
+            break
+        case 5:
+           diaSemanaTexto = "Sexta-Feira"
+           break
+        case 6:
+            diaSemanaTexto = "Sábado" 
+            break
+        default:
+            diaSemanaTexto = "Dia Invalido!"
+            break
+    }    
 
-function formatarData(data){
-    const dia = zeroAesquerda(data.getDate())
-    const mes = zeroAesquerda(data.getMonth() + 1)
-    const ano = zeroAesquerda(data.getFullYear())
-    const hora = zeroAesquerda(data.getHours())
-    const min = zeroAesquerda(data.getMinutes())
-    const seg = zeroAesquerda(data.getSeconds())
-    
-    return `${dia}/${mes}/${ano} ${hora}:${min}:${seg}`
+    return diaSemanaTexto
 }
 
 const data = new Date()
-const dataBrasil = formatarData(data)
-console.log(dataBrasil)
+const diaSemana = data.getDay()
+const diaSemanaTexto = getDiaSemanaTexto(diaSemana)
+
+console.log(diaSemana, diaSemanaTexto)
