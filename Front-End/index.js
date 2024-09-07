@@ -1,9 +1,8 @@
 const tela = document.querySelector("h1")
 tela.innerHTML = ""
 
-
 let data = new Date()
-let dia = data.getDate()
+let dia = data.getDay()
 let mes = data.getMonth()
 let ano = data.getFullYear()
 let hora = data.getHours()
@@ -86,11 +85,12 @@ function diaTexto(dia){
         case 6:
             diaTexto = "Sábado"
             break
-        default:
+         default:
             diaTexto = "Dia invalido"
+            break
     }
     return diaTexto
 }
 
 tela.innerHTML += `${diaTexto(dia)}, ${dia} de ${mesTexto(mes)} de ${ano} <br/>`
-tela.innerHTML += `${hora}:${adicionarZero(minutos)}`
+tela.innerHTML += `${adicionarZero(hora)}:${adicionarZero(minutos)}`
