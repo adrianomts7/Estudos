@@ -1,39 +1,13 @@
-/*
-const verdadeira = true
+/// ... rest, ... spread
+//const numeros = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000];
+//const [um, , tres, ,cinco, , sete] = numeros;
+//console.log(um,tres,cinco,sete)
 
-// Let tem escopo de bloco { ... bloco }
-// Var so tem escopo de função, reescreve
-
-let nome = 'Luiz' // Criando
-var nome2 = 'Luiz' // Criando
-
-
-if (verdadeira){
-    let nome = 'Otavio' // Criando
-    var nome2 = 'Rogerio' // redeclarando
-
-    if (verdadeira){
-        var nome2 = 'Ronaldo' // Redeclarada
-        let nome = 'Outra coisa'
-    }
-}
-
-console.log(nome,nome2)
-*/
-/*
-const verdadeira = true
-
-function falaOI(){
-    var sobrenome = 'Santos'
-
-    
-    if (verdadeira){
-        let nome = 'Luiz'
-        console.log(sobrenome)
-    }
-}
-falaOI()
-*/
-
-let sobrenome = 'Santos'
-console.log(sobrenome)
+const numeros = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+];
+const [lista1,lista2,lista3] = numeros;
+console.log(lista3[2])
+//console.log(numeros[1][2])
