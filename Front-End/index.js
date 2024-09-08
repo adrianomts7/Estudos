@@ -1,3 +1,4 @@
+/*
 const tela = document.querySelector("h1")
 tela.innerHTML = ""
 
@@ -9,7 +10,7 @@ let hora = data.getHours()
 let minutos = data.getMinutes()
 
 function adicionarZero(num){
-    return num > 10 ? num : `0${num}`
+    return num >= 10 ? num : `0${num}`
 }
 
 function mesTexto(mes){
@@ -94,3 +95,12 @@ function diaTexto(dia){
 
 tela.innerHTML += `${diaTexto(dia)}, ${dia} de ${mesTexto(mes)} de ${ano} <br/>`
 tela.innerHTML += `${adicionarZero(hora)}:${adicionarZero(minutos)}`
+*/
+
+//Outra Maneira de se fazer forma mais facil
+/*
+let h1 = document.querySelector("h1")
+let data = new Date()
+h1.innerHTML = data.toLocaleString('Pt-BR', {dateStyle: 'full', timeStyle: 'short'})
+*/
+
