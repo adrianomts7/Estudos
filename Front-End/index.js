@@ -1,13 +1,5 @@
-const pessoa = {
-    nome: 'Marta',
-    sobrenome: 'Santos',
-    idade: 30,
-    endereco: {
-        rua: 'Av Brasil',
-        numero: 320
-    }
-}
+const frutas = ['Maçã', 'Pera','Uva','Melancia','Melão','Acerola','Cajá']
 
-// Atribuição via desestruturação
-const { nome, ... resto } = pessoa;
-console.log(nome, resto)
+for (let i = 0; i < frutas.length; i++){
+    console.log(`Índice ${i}`, frutas[i])
+}
