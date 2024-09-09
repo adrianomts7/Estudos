@@ -1,21 +1,20 @@
-const elementos = [
-    {tag: 'p', texto: 'Texto que você quiser'},
-    {tag: 'div', texto: 'Frase2'}, 
-    {tag: 'Footer', texto: 'Frase3'},
-    {tag: 'Section', texto: 'Frase4'}  
-]
+// For in -> lê indice por indice ou chaves do objeto
+//const frutas = ['Pera','Maçã','Uva']
 
-const container = document.querySelector("section");
-const div = document.createElement("div");
+//for (let i in frutas){ 
+//  console.log(frutas[i])
+//}
 
-for (let i = 0; i < elementos.length; i++){
-    let { tag, texto} = elementos[i]
-    let tagCriada = document.createElement(tag)
-    //tagCriada.innerHTML = texto //Por que não te, teag html é sim texto que será adicionado 
-    //tagCriada.innerText = texto // Pode usar assim
-    let textoCriado = document.createTextNode(texto) // Ou asssim
-    textoCriado.appendChild(textoCriado) // Para adicionar 
-    div.appendChild(tagCriada)
+const pessoa = {
+    nome: 'Marta',
+    sobrenome: 'Otavio',
+    idade: 30
 }
 
-container.appendChild(div)
+//console.log(pessoa.nome) // Acessar indice de uma forma
+//const chave = 'nome'
+//console.log(pessoa[chave]) // Outra forma
+
+for (let chave in pessoa){
+   console.log(chave, pessoa[chave])
+}
