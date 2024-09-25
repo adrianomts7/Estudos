@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 //const nome = 'Marta Silva'
 //const nomes = ['Marcio','Maria','Mateus']
 const pessoa = {
@@ -31,3 +32,17 @@ nomes.forEach(function(valor,indice,array){
     console.log(valor,indice,array)
 })
 
+=======
+/*
+console.log('Linha 1')
+console.log('Linha 2')
+console.log('Linha 3')
+console.log('Linha 4')
+console.log('Linha 5')
+*/
+
+// i - index
+for (let i = 500; i <= 500; i -= 10){
+    console.log(`Linha ${i}`)
+}
+>>>>>>> Stashed changes
