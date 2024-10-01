@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body{
-    background: lightblue;
+    background: rgb(20, 20, 97);
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -15,6 +15,5 @@ section{
     padding: 10px 0px;
     text-align: center;
     background: white;
-    height: 20vh;
     width: 70vw;
 }
