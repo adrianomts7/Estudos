@@ -1,31 +1,25 @@
-// function maiorNumero(num1, num2){
-//     let maior = 0
-//     let mensagem = null
-//     const primeiroNumero = Number(num1)
-//     const segundoNumero = Number(num2)
+// function ePaisagem(lar,alt){
+//     let paisagem = null
+//     let largura = Number(lar)
+//     let altura = Number(alt)
 
-//     if (primeiroNumero > segundoNumero){
-//         maior = primeiroNumero
-//         mensagem = `O maior número é ${maior}`
+//     if(largura === 1080 && altura === 556){
+//         paisagem = true
 //     }
-//     else if (segundoNumero > primeiroNumero){
-//         maior = segundoNumero
-//         mensagem = `O maior número é ${maior}`
+//     else{
+//         paisagem = false
 //     }
-//     else {
-//         maior = primeiroNumero
-//         mensagem = `Os números ${maior} são iguais `
-//     }
-//     return mensagem
+
+//     return paisagem
 // }
 
-// console.log(maiorNumero(9,9))
+// console.log(ePaisagem(1080,608))
 
-// function max(x,y){
-//     return x > y ? x : y
+// function ePaisagem(x,y){
+//     return x === 1080 & y === 556 ? true : false
 // }
-// console.log(max(10,20))
 
-// const max2 = (x,y) => x > y ? x : y
+// console.log(ePaisagem(1000,608))
 
-// console.log(max2(10,20))
+const ePaisagem = (largura, altura) => largura > altura
+console.log(ePaisagem(1000,608))
