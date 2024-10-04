@@ -1,17 +1,31 @@
-const numeros = [1,2,3,4,5,6,7,8,9] 
+// function maiorNumero(num1, num2){
+//     let maior = 0
+//     let mensagem = null
+//     const primeiroNumero = Number(num1)
+//     const segundoNumero = Number(num2)
 
-for(let numero of numeros){
+//     if (primeiroNumero > segundoNumero){
+//         maior = primeiroNumero
+//         mensagem = `O maior número é ${maior}`
+//     }
+//     else if (segundoNumero > primeiroNumero){
+//         maior = segundoNumero
+//         mensagem = `O maior número é ${maior}`
+//     }
+//     else {
+//         maior = primeiroNumero
+//         mensagem = `Os números ${maior} são iguais `
+//     }
+//     return mensagem
+// }
 
-    if (numero === 2){
-        console.log('Pulei o número 2')
-        continue
-    }
-    
-    
-    if (numero === 7){
-        console.log('Parei no número 7')
-        break
-    }
-    
-    console.log(numero)
-}
+// console.log(maiorNumero(9,9))
+
+// function max(x,y){
+//     return x > y ? x : y
+// }
+// console.log(max(10,20))
+
+// const max2 = (x,y) => x > y ? x : y
+
+// console.log(max2(10,20))
