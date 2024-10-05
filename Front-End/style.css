@@ -9,11 +9,18 @@ h1{
     text-align: center;
 }
 
-
 section{
-    margin: 0 auto;
+    margin: 50px auto;
     padding: 10px 0px;
     text-align: center;
     background: white;
     width: 70vw;
+}
+
+.relogio{
+    font-size: 3em;
+}
+
+.pausado{
+    color: red;
 }

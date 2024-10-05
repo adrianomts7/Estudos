@@ -1,21 +1,65 @@
-function mostraHora(){
-    let data = new Date()
+function relogio(){
 
-    return data.toLocaleTimeString('pt-BR', {
-        hour12: false
+    function criarHoraSegundos(segundos){
+        const data = new Date(segundos * 1000)
+        return data.toLocaleTimeString('pt-br',{
+            hour12: false,
+            timeZone: 'UTC'
+        })
+    }
+
+    const relogio = document.querySelector('.relogio')
+    // const iniciar = document.querySelector('.iniciar')
+    // const pausar = document.querySelector('.pausar')
+    // const zerar = document.querySelector('.zerar')
+    let segundos = 0
+    let timer
+
+    function iniciaRelogio(){
+        timer = setInterval(function(){
+            segundos++
+            relogio.innerHTML = criarHoraSegundos(segundos)
+        },1000)
+    }
+
+    document.addEventListener('click', function(event){
+        const el = event.target
+        
+        if (el.classList.contains('iniciar')){
+            relogio.classList.remove('pausado')
+            clearInterval(timer)
+            iniciaRelogio();
+        }
+        
+        if(el.classList.contains('pausar')){
+            clearInterval(timer)
+            relogio.classList.add('pausado')
+        }
+        
+        if(el.classList.contains('zerar')) {
+            clearInterval(timer)
+            relogio.innerHTML = '00:00:00'
+            relogio.classList.remove('pausado')
+            segundos = 0
+        }
+
+
+
     })
+
+    // iniciar.addEventListener('click', function(event){
+    //     relogio.classList.remove('pausado')
+    //     clearInterval(timer)
+    //     iniciaRelogio();
+    // })
+    // pausar.addEventListener('click', function(event){
+    //     clearInterval(timer)
+    //     relogio.classList.add('pausado')
+    // })
+    // zerar.addEventListener('click', function(event){
+    //     clearInterval(timer)
+    //     relogio.innerHTML = '00:00:00'
+    //     segundos = 0
+    // })
 }
-
-const timer =  setInterval(function(){
-    console.log(mostraHora())
-},1000)
-
-setTimeout(function(){
-   clearInterval(timer)
-}, 30000)
-
-setTimeout(function(){
-    console.log("Olá Mundo")
-},5000)
-
-// console.log(mostraHora())
+relogio()
