@@ -1,65 +1,77 @@
-function relogio(){
+const inputTarefa = document.querySelector('.input-tarefa')
+const btnTarefa = document.querySelector('.btn-tarefa')
+const tarefas = document.querySelector('.tarefas')
 
-    function criarHoraSegundos(segundos){
-        const data = new Date(segundos * 1000)
-        return data.toLocaleTimeString('pt-br',{
-            hour12: false,
-            timeZone: 'UTC'
-        })
-    }
-
-    const relogio = document.querySelector('.relogio')
-    // const iniciar = document.querySelector('.iniciar')
-    // const pausar = document.querySelector('.pausar')
-    // const zerar = document.querySelector('.zerar')
-    let segundos = 0
-    let timer
-
-    function iniciaRelogio(){
-        timer = setInterval(function(){
-            segundos++
-            relogio.innerHTML = criarHoraSegundos(segundos)
-        },1000)
-    }
-
-    document.addEventListener('click', function(event){
-        const el = event.target
-        
-        if (el.classList.contains('iniciar')){
-            relogio.classList.remove('pausado')
-            clearInterval(timer)
-            iniciaRelogio();
-        }
-        
-        if(el.classList.contains('pausar')){
-            clearInterval(timer)
-            relogio.classList.add('pausado')
-        }
-        
-        if(el.classList.contains('zerar')) {
-            clearInterval(timer)
-            relogio.innerHTML = '00:00:00'
-            relogio.classList.remove('pausado')
-            segundos = 0
-        }
-
-
-
-    })
-
-    // iniciar.addEventListener('click', function(event){
-    //     relogio.classList.remove('pausado')
-    //     clearInterval(timer)
-    //     iniciaRelogio();
-    // })
-    // pausar.addEventListener('click', function(event){
-    //     clearInterval(timer)
-    //     relogio.classList.add('pausado')
-    // })
-    // zerar.addEventListener('click', function(event){
-    //     clearInterval(timer)
-    //     relogio.innerHTML = '00:00:00'
-    //     segundos = 0
-    // })
+function criaLi(){
+    const li = document.createElement('li')
+    return li
 }
-relogio()
+
+inputTarefa.addEventListener('keypress',function(e){
+    if (e.keyCode === 13){
+        if (!inputTarefa.value) return
+        criaTarefa(inputTarefa.value)
+        limpaInput()
+    }
+})
+
+function limpaInput(){
+    inputTarefa.value = ''
+    inputTarefa.focus()
+}
+
+function criaBotaoApagar(li){
+    li.innerText += ' '
+    const botaoApagar = document.createElement('button')
+    botaoApagar.innerText = 'Apagar'
+    botaoApagar.setAttribute('class', 'apagar')
+    li.appendChild(botaoApagar)
+}
+
+function criaTarefa(textoInput){
+    const li = criaLi()
+    li.innerText = textoInput
+    tarefas.appendChild(li)
+    limpaInput()
+    criaBotaoApagar(li)
+    salvarTarefas()
+}
+
+btnTarefa.addEventListener('click',function(){
+    if(!inputTarefa.value) return
+    criaTarefa(inputTarefa.value)
+})
+
+document.addEventListener('click',function(e){
+    const el = e.target
+    
+    if(el.classList.contains('apagar')){
+        el.parentElement.remove()
+        salvarTarefas()
+    }
+})
+
+function salvarTarefas(){
+    const liTarefas = tarefas.querySelectorAll('li')
+    const listaDeTarefas = []
+
+    for (let tarefa of liTarefas){
+        let tarefaTexto = tarefa.innerText
+        tarefaTexto = tarefaTexto.replace('Apagar', '').trim()
+        listaDeTarefas.push(tarefaTexto)
+    }
+
+    const tarefasJSON = JSON.stringify(listaDeTarefas)
+    localStorage.setItem('tarefas', tarefasJSON)
+}
+
+function adicionaTarefasSalvas(){
+    const tarefas = localStorage.getItem('tarefas')
+    const listaDeTarefas = JSON.parse(tarefas)
+
+    for(let tarefa of listaDeTarefas){
+        criaTarefa(tarefa)
+    }
+}
+
+adicionaTarefasSalvas()

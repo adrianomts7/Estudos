@@ -12,15 +12,33 @@ h1{
 section{
     margin: 50px auto;
     padding: 10px 0px;
-    text-align: center;
     background: white;
-    width: 70vw;
+    width: 800px
 }
 
-.relogio{
-    font-size: 3em;
+.input-tarefa{
+    display: block;
+    width: 500px;
+    height: 25px;
+    padding: 0px 5px;
+    margin: 20px auto;
 }
 
-.pausado{
-    color: red;
+.btn-tarefa{
+    display: block;
+    margin: 10px auto;
+    width: 500px;
+    height: 35px;
+    color: white;
+    background: rgb(15, 15, 99);
+}
+
+.btn-tarefa:hover{
+    background: rgb(39, 39, 143);
+}
+
+.tarefas{
+    display: block;
+    margin: 10px auto;
+    list-style: none;
 }
