@@ -1,39 +1,38 @@
-// arguments é a variavel que sustenta todos os argumentos enviados
-// function funcao(a,b,c){
-//     let total = 0
-//     for(let argumento of arguments){ 
-//         total += argumento
+// Return
+// Retorna um valor
+// Termina a função
+
+// document.addEventListener('click', function(){
+//     document.body.style.backgroundColor = 'red'
+// })
+
+// function criaPessoa(nome, sobrenome){
+//     return {
+//         nome,sobrenome
 //     }
+// } 
 
-//     console.log(total,a,b,c)
-
-// }
-// funcao(1,2,3,4,5,6,7) 
-
-// Desustruturando Objetos com função
-// function funcao({nome,sobrenome,idade}){
-//     console.log(nome, sobrenome, idade)
-// }
-// let obj = {nome: 'Adriano',sobrenome: 'Mateus',idade: 18}
-
-// funcao(obj) 
-
-// Desustruturando Array com função
-// function funcao([valor1,valor2,valor3]){
-//     console.log(valor1,valor2,valor3)
+// const p1 = criaPessoa('Luiz','Otavio')
+// const p2 = {
+//     nome: 'João',
+//     sobrenome: "Oliveira"
 // }
 
-// funcao(['Adriano','Mateus',18])
+// console.log(typeof p1)
+// console.log(typeof p2)
 
-const conta = function(operador, acumulador, ...numeros) {
-    for (let numero of numeros){
-        if (operador === '+') acumulador += numero
-        if (operador === '-') acumulador -= numero
-        if (operador === '/') acumulador /= numero
-        if (operador === '*') acumulador *= numero
+function criaMultiplicador(multiplicador){
+    return function(n){
+        return n * multiplicador
     }
-
-    console.log(acumulador)
-
 }
-conta('+',1,20,30,40,50)
+
+// define os multiplicador, utilizando função
+const duplica = criaMultiplicador(2)
+const triplica = criaMultiplicador(3)
+const quadriplica = criaMultiplicador(4)
+
+// Os valores a ser multiplicados
+console.log(duplica(2))
+console.log(triplica(2))
+console.log(quadriplica(2))
