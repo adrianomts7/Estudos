@@ -1,28 +1,39 @@
-// Declaração de função (function hoisting)
-falaOi()
+// arguments é a variavel que sustenta todos os argumentos enviados
+// function funcao(a,b,c){
+//     let total = 0
+//     for(let argumento of arguments){ 
+//         total += argumento
+//     }
 
-function falaOi(){
-    console.log("Oie")
-}
+//     console.log(total,a,b,c)
 
-// First-class objects (Objetos de primeira classe)
-// Function express
-const souUmDado = function nomeDaFuncao(){
-    console.log('Sou um dado')
-}
-souUmDado()
+// }
+// funcao(1,2,3,4,5,6,7) 
 
-// Arrow Function
-const funcaoArrow = () => {
-    console.log('Sou uma arrow function')
-}
-funcaoArrow()
+// Desustruturando Objetos com função
+// function funcao({nome,sobrenome,idade}){
+//     console.log(nome, sobrenome, idade)
+// }
+// let obj = {nome: 'Adriano',sobrenome: 'Mateus',idade: 18}
 
-// Dentro de um objeto
-const obj = {
-    falar (){
-        console.log('Estou falando...')
+// funcao(obj) 
+
+// Desustruturando Array com função
+// function funcao([valor1,valor2,valor3]){
+//     console.log(valor1,valor2,valor3)
+// }
+
+// funcao(['Adriano','Mateus',18])
+
+const conta = function(operador, acumulador, ...numeros) {
+    for (let numero of numeros){
+        if (operador === '+') acumulador += numero
+        if (operador === '-') acumulador -= numero
+        if (operador === '/') acumulador /= numero
+        if (operador === '*') acumulador *= numero
     }
-}
 
-obj.falar()
+    console.log(acumulador)
+
+}
+conta('+',1,20,30,40,50)
