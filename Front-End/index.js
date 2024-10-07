@@ -1,38 +1,47 @@
-// Return
-// Retorna um valor
-// Termina a função
-
-// document.addEventListener('click', function(){
-//     document.body.style.backgroundColor = 'red'
-// })
-
-// function criaPessoa(nome, sobrenome){
-//     return {
-//         nome,sobrenome
-//     }
-// } 
-
-// const p1 = criaPessoa('Luiz','Otavio')
-// const p2 = {
-//     nome: 'João',
-//     sobrenome: "Oliveira"
-// }
-
-// console.log(typeof p1)
-// console.log(typeof p2)
-
-function criaMultiplicador(multiplicador){
-    return function(n){
-        return n * multiplicador
-    }
+function rand(min = 1000, max= 3000){
+        const num = Math.random() * (max - min) + min
+    return Math.floor(num)
 }
 
-// define os multiplicador, utilizando função
-const duplica = criaMultiplicador(2)
-const triplica = criaMultiplicador(3)
-const quadriplica = criaMultiplicador(4)
+function f1(callback){
+    setTimeout(function(){
+        console.log("f1")
+        if (callback) callback()
+    }, rand())
+}
 
-// Os valores a ser multiplicados
-console.log(duplica(2))
-console.log(triplica(2))
-console.log(quadriplica(2))
+function f2(callback){
+    setTimeout(function(){
+        console.log("f2")
+        if (callback) callback()
+    }, rand())
+}
+
+function f3(callback){
+    setTimeout(function(){
+        console.log("f3")
+        if (callback) callback()
+    }, rand())
+}
+
+// f1(function(){
+//     f2(function(){
+//         f3(function(){
+//             console.log('Olá Mundo')
+//         })
+//     })
+// })
+
+f1(f1CallBack)
+
+function f1CallBack(){
+    f2(f2CallBack)
+}
+
+function f2CallBack(){
+    f3(f3CallBack)
+}
+
+function f3CallBack(){
+    console.log("Olá Mundo!")
+}
