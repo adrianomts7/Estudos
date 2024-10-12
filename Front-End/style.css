@@ -10,35 +10,39 @@ h1{
 }
 
 section{
-    margin: 50px auto;
     padding: 10px 0px;
+    margin: 20px auto;
     background: white;
     width: 800px
 }
 
-.input-tarefa{
+.calculadora{
+    width: 400px;
     display: block;
-    width: 500px;
-    height: 25px;
-    padding: 0px 5px;
     margin: 20px auto;
 }
 
-.btn-tarefa{
-    display: block;
-    margin: 10px auto;
-    width: 500px;
-    height: 35px;
-    color: white;
-    background: rgb(15, 15, 99);
+.display{
+    font-size: 2em;
+    width: 100%;
+    text-align: right;
 }
 
-.btn-tarefa:hover{
-    background: rgb(39, 39, 143);
+.btn{
+    width: 100%;
+    height: 50px;
+    font-size: 1em;
+    border: none;
+    background: #dfdfdf;
+    cursor: pointer;
+    margin: 8px;
+    padding: 5px;
 }
 
-.tarefas{
-    display: block;
-    margin: 10px auto;
-    list-style: none;
+.btn:hover{
+    background-color: #999999;
+}
+
+.btn-eq:hover{
+    background:rgb(6, 180, 6);
 }
