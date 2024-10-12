@@ -1,80 +1,24 @@
-function criaCalculadora(){
-    return {
-        display: document.querySelector('.display'),
-        btnClear: document.querySelector('.btn-clear'),
+// Função construtora -> objetos
+// Função fabrica -> objetos
+// Construtora -> Pessoa (new)
+// fabrica -> criaPessoa()
+function Pessoa(nome,sobrenome){
+    // Privada
+    const ID = 123
 
-        inicia() {
-            this.cliqueBotoes()
-            this.pressionaEnter()
-        },
-        
-        pressionaEnter(){
-            this.display.addEventListener('keyup', e => {
-                if(e.keyCode === 13){
-                    this.realizaConta()
-                }
-            })
-        },
+    // Públicos
+    this.nome = nome
+    this.sobrenome = sobrenome
 
-        realizaConta(){
-            let conta = this.display.value
-
-            try{
-                conta = eval(conta)
-
-                if(!conta){
-                    alert('Conta invalida')
-                    return this.clearDisplay()
-                }
-
-                this.display.value = String(conta)
-            }
-            catch(e){
-                alert('Conta Invalida')
-                return this.clearDisplay()
-            }
-
-        },
-        
-        clearDisplay(){
-            this.display.value = " "
-        },
-
-        apagaUm(){
-            this.display.value = this.display.value.slice(0, -1) 
-        },
-
-
-        cliqueBotoes() {
-            // this -> calculadora
-            document.addEventListener('click', e => {
-                const el = e.target
-                
-                if(el.classList.contains('btn-num')){
-                    this.btnParaDisplay(el.innerText)
-                }
-                
-                if(el.classList.contains("btn-clear")){
-                    this.clearDisplay()
-                }
-
-                if (el.classList.contains('btn-del')){
-                    this.apagaUm()
-                }
-
-                if (el.classList.contains('btn-eq')){
-                    this.realizaConta()
-                }
-
-            })
-        },
-
-        btnParaDisplay(valor){
-            this.display.value += valor;
-        }
-
+    this.metodo = function(){
+        console.log(`Eu sou ${this.nome}`)
     }
+
 }
 
-const calculadora = criaCalculadora()
-calculadora.inicia()
+const p1 = new Pessoa('Adriano','Mateus')
+const p2 = new Pessoa('Maria',"Lourdes")
+
+console.log(p1.nome)
+console.log(p2.sobrenome)
+p2.metodo()
