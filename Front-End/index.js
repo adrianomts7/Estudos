@@ -1,15 +1,15 @@
-//              0          1       2         3        4
-// const nomes = ['Maria','Mateus','Merliah','Aurora','Maria Cecilia']
-// // const nomes = new Array('Maria', 'Mateus', 'Merliah')
-// // const novo = [...nomes]
-// delete nomes[2]
-// const removido = nomes.pop()
-// const novo = nomes.slice(1,-2)
-// nomes.push('Aurora')
-// nomes.unshift('Maria Cecilia')
-// console.log(novo)
+const nomes = ['Adriano','Lourdes','Aurora','Mateus','Maria Cecilia']
 
-const nome = 'Adriano Mateus Santos'
-const nomes = nome.split(' ')
-const nom = nomes.join(' ')
-console.log(nomes )
+// nomes.splice(indice,delete,elemento para adicionar)
+// pop -> remove o ultimo item
+// const removidos = nomes.splice(-1,1)
+
+// shift -> remove o primeiro item
+// const removidos = nomes.splice(0,1)
+
+// Push -> Adicionar no ultimo indice da lista
+// nomes.splice(nomes.length,1,'Maria')
+
+// unshift -> Adicionar no primeiro indice da lista
+nomes.splice(0,0,'Maria')
+console.log(nomes)
