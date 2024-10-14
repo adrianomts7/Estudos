@@ -1,39 +1,39 @@
-// Filter -> Sempre retorna um arraym com a mesma quantidade de elementos ou menos
+// Dobre os números
+const numeros = [5, 50, 80, 1, 2, 3, 5, 8, 7, 11, 15, 22,27]
+const numerosEmDobro = numeros.map(function(valor) { return valor * 2 })
 
-// Retorna os números maiores que 10
-const numeros = [5, 50, 80, 1, 2, 3, 5, 8, 7, 11, 15, 22, 27]
+// console.log(numerosEmDobro)
 
-// function callBackFilter(valor, indice, array){
-//    return valor > 10
-// }
+// Para cada Elemento
+// Retorne apenas uma string com o nome da pessoa
+// Remova apenas a chave "nome" do objeto
+// Adicione uma chave id em cada objeto
 
-const numerosFiltadros = numeros.filter( valor => valor > 10 )
-// console.log(numerosFiltadros)
-
-
-
-// Retorne as pessoas que tem o nome com 5 letras ou mais
-// Retorne as pessoas com mais de 50 anos
-// Retorne as pessoas cujo o nome termina com a
 const pessoas = [
-    { nome: 'Adriano', idade: 18},
-    { nome: 'Maria', idade: 19},
-    { nome: 'Mateus', idade: 22},
-    { nome: 'Aurora', idade: 35},
-    { nome: 'Edvaldo', idade: 75},
-    { nome: 'Brasilina', idade: 80},
-    { nome: 'João', idade: 50 }
+    { nome: 'Maria', idade: 20},
+    { nome: 'Nego', idade: 30},
+    { nome: "Ana", idade: 50},
+    { nome: 'Joanice', idade: 35},
+    { nome: 'Nicacio', idade: 80},
+    { nome: 'Marilene', idade: 25}
 ]
 
-// Uma Forma de fazer a função
-const pessoasNomeMaiorCinco = pessoas.filter(objeto => objeto.nome.length >= 5) 
-// console.log(pessoasNomeMaiorCinco)
+const nomes = pessoas.map(valor => valor.nome)
+// console.log(nomes)
 
-// Outra Forma de fazer a Função
-const pessoasAcima50 = pessoas.filter( function(objeto) {
-    return objeto.idade >= 50
+const idades = pessoas.map(valor => ({idade: valor.idade}))
+// console.log(idades)
+
+// const idades = pessoas.map(valor => {
+//     delete valor.nome
+//     return {idade: valor.idade}
+// })
+// console.log(idades)
+
+const adicionandoID = pessoas.map((valor, indice) => {
+    const newObj = {... valor}
+    newObj.id = (indice + 1)
+    return newObj
 })
-// console.log(pessoasAcima50)
-
-const pessoasNomeTerminaA = pessoas.filter( objeto => objeto.nome.toLowerCase().endsWith('a'))
-console.log(pessoasNomeTerminaA)
+console.log(adicionandoID)
+console.log(pessoas)
