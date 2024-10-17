@@ -1,30 +1,41 @@
-// defineProperty -> define somente uma
-// defineProperties -> define varias de uma vez
-
+// defineProperty -> Getter e Setters
 function Produto(nome, preco, estoque){
+    this.nome = nome
+    this.preco = preco
+     
+    let estoquePrivado = estoque
     Object.defineProperty(this, 'estoque', {
         enumerable: true, // Mostra a chave 
-        value: estoque, // Valor
-        writable: false, // Posso Alterar o valor do estoque
-        configurable: false // configuravel
-    })
-
-    Object.defineProperties(this, {
-        nome: {
-            enumerable: true,
-            value: nome,
-            writable: true,
-            configurable: true
+        configurable: false, // configuravel
+        get: function (){
+            return estoquePrivado
         },
-        preco: {
-            enumerable: true,
-            value: preco,
-            writable: true,
-            configurable: true
+        set: function (valor){
+            if(typeof valor !== Number){
+               throw new TypeError("Digite somente números")
+            }
+
+            estoquePrivado = valor
         }
     })
 
 }
 
+function criaProduto(nome) {
+    return {
+        get nome (){
+            return nome
+        },
+        set nome (valor){
+            valor = valor.replace('Coisa', " ")
+            nome = valor
+        }
+    }
+}
+
 const p1 = new Produto('Camiseta', 20, 7)
-console.log(p1)
+// console.log(p1)
+
+const p2 = criaProduto("Camiseta")
+p2.nome = 'Qualquer Coisa'
+console.log(p2.nome)
