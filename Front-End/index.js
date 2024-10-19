@@ -1,64 +1,60 @@
-// new object -> Object.prototype
-const objA = {
-    chaveA: 'A'
-    // __proto__: Object.prototype
-}
-
-const objB = {
-    chaveB: 'B',
-    // __proto__: objA
-}
-
-const objC = new Object()
-objC.chaveC = 'C'
-
-Object.setPrototypeOf(objB,objA)
-// console.log(objB.chaveA)
-Object.setPrototypeOf(objC,objB)
-// console.log(objC.chaveB)
-
-
-
 function Produto(nome, preco){
     this.nome = nome
     this.preco = preco
 }
 
-Produto.prototype.desconto = function(valor){
-    this.preco = this.preco - (this.preco * (valor / 100))
+// Soma
+Produto.prototype.aumento = function (quantia){
+    this.preco += quantia
 }
 
-Produto.prototype.aumento = function(valor){
+Produto.prototype.desconto = function(quantia){
+    this.preco -= quantia
+}
+
+function Camiseta(nome, preco, cor){
+    Produto.call(this, nome, preco)
+    this.cor = cor
+}
+
+// Object.setPrototypeOf(Camiseta.prototype, Produto.prototype)
+Camiseta.prototype = Object.create(Produto.prototype) 
+Camiseta.prototype.constructor = Camiseta
+
+// Porcentagem
+Camiseta.prototype.aumento = function (valor){
     this.preco = this.preco + (this.preco * (valor / 100))
 }
 
-const p1 = new Produto('Camiseta', 50)
-// p1.desconto(100)
-// p1.aumento(100)
+function Caneca(nome, preco, material, estoque){
+    Produto.call(this, nome, preco)
+    this.material = material
+    
+    Object.defineProperty(this, 'estoque', {
+        enumerable: true,
+        configurable: false,
+        get: function(){
+            return estoque
+        },
+        set: function(valor){
+            if(typeof valor !== 'number') return
+            estoque = valor
+        }
+    })
 
-const p2 = {
-    nome: 'Caneca',
-    preco: 15
 }
 
-Object.setPrototypeOf(p2, Produto.prototype)
+Caneca.prototype = Object.create(Produto.prototype)
+Caneca.prototype.constructor = Caneca
 
-// console.log(p1)
-// p2.aumento(10)
-// console.log(p2)
+const produto = new Produto('Café', 10)
+const camiseta = new Camiseta('Regata', 7.5, 'Preta')
+const caneca = new Caneca('Caneca', 13, 'Plastico', 5)
 
-const p3 = Object.create(Produto.prototype, {
-    tamanho: {
-        writable: true,
-        configurable: true,
-        enumerable: true,
-        value: 40
-    },
-    largura: {
-        writable: true,
-        configurable: false,
-        enumerable: true,
-        value: 10
-    }
-})
-console.log(p3)
+// caneca.estoque = 100
+
+// camiseta.aumento(10)
+console.log(produto)
+console.log(camiseta)
+console.log(caneca)
+console.log(caneca.estoque)
