@@ -1,51 +1,61 @@
-function ValidaCPF(cpfEnviado){
-    Object.defineProperty(this,'cpfLimpo', {
-        enumerable: true,
-        get: function() {
-            return cpfEnviado.replace(/\D+/g, '')
-        }
-    })
+// Superclass
+function Conta(agencia, conta, saldo){
+    this.agencia = agencia
+    this.conta = conta
+    this.saldo = saldo
 }
 
-ValidaCPF.prototype.valido = function() {
-    if(typeof this.cpfLimpo === 'undefined') return false
-    if(this.cpfLimpo.length !== 11) return false
-    if(this.isSequencial()) return false
+Conta.prototype.sacar = function(valor) {
+    if(this.saldo < valor){
+        console.log(`Saldo Insuficiente: R$ ${this.saldo}`) 
+        return
+    }
+
+    this.saldo -= valor
+    this.verSaldo()
+}
+
+Conta.prototype.depositar = function(valor) {
+    this.saldo += valor
+    this.verSaldo()
+}
+
+Conta.prototype.verSaldo = function() {
+    console.log(`Agencia: ${this.agencia} - Conta: ${this.conta} - Saldo: R$ ${this.saldo.toFixed(2)}`)
+}
+
+function ContaCorrente(agencia, conta, saldo, limite) {
+    Conta.call(this, agencia, conta, saldo)
+    this.limite = limite
+}
+
+ContaCorrente.prototype = Object.create(Conta.prototype)
+
+ContaCorrente.prototype.sacar = function(valor){
+    if(valor > (this.saldo + this.limite)){
+        console.log(`Saldo Insuficiente: R$ ${this.saldo}`)
+        return
+    }
+
+    this.saldo -= valor
+    this.verSaldo()
+}
+
+const cc = new ContaCorrente(11, 22, 0, 100)
+cc.depositar(10)
+cc.sacar(110)
+cc.sacar(111)
+
+function ContaPoupanca(agencia, conta, saldo){
+    Conta.call(this, agencia, conta, saldo)
     
-    const cpfParcial = this.cpfLimpo.slice(0, -2)
-    const primeiroDigito = this.criaDigito(cpfParcial)
-    const segundoDigito = this.criaDigito(cpfParcial + primeiroDigito)
-    
-    const novoCpf = cpfParcial + primeiroDigito + segundoDigito
-
-    return novoCpf === this.cpfLimpo
 }
 
-ValidaCPF.prototype.criaDigito = function(cpfParcial) {
-    const cpfArray = Array.from(cpfParcial)
-    let regressivo = cpfArray.length + 1
+ContaPoupanca.prototype = Object.create(Conta.prototype)
+ContaPoupanca.prototype.constructor = ContaPoupanca
 
-    const total = cpfArray.reduce((ac, val) => {
-        ac += (regressivo * Number(val))
-        regressivo --
-        return ac
-    }, 0)
-
-    const digito = 11 - (total % 11)
-
-    return digito > 9 ? '0' : String(digito)
-}
-
-ValidaCPF.prototype.isSequencial = function() {
-    const sequencia = this.cpfLimpo[0].repeat(this.cpfLimpo.length)
-    return sequencia === this.cpfLimpo
-}
-
-const cpf = new ValidaCPF('705.484.450-52')
-
-if(cpf.valido()){
-    console.log('Cpf Valido')
-}
-else {
-    console.log('Cpf Invalido')
-}
+console.log()
+const cp = new ContaPoupanca(12, 33, 0)
+cp.depositar(10)
+cp.sacar(110)
+cp.sacar(1)
