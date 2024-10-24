@@ -1,33 +1,30 @@
-const falar = {
-    falar(){
-        console.log(`${this.nome} está falando`)
-        },
+const pessoas = [
+    { id: 3, nome: 'Adriano'},
+    { id: 2, nome: 'Maria'},
+    { id: 1, nome: 'Mateus'}
+]
+
+// const novasPessoas = {}
+// for (const pessoa of pessoas){
+//     const { id } = pessoa
+//     novasPessoas[id] = { ... pessoa }
+// }
+
+const novasPessoas = new Map()
+for (const pessoa of pessoas){
+    const { id } = pessoa
+    novasPessoas.set(id, { ... pessoa })
 }
 
-const comer = {
-    comer(){
-        console.log(`${this.nome} está comendo`)
-    },
-}
+console.log(novasPessoas)
 
-const beber = {
-    beber(){
-        console.log(`${this.nome} está bebendo`)
-    }
-}
+// for (const [identifier, { id,nome }] of novasPessoas){
+//     console.log(identifier, id, nome)
+// }
 
-// const pessoaPrototype = { ... falar, ... comer, ... beber}
-const pessoaPrototype = Object.assign({}, falar, comer, beber)
+// for (const pessoas of novasPessoas.keys()){
+//     console.log(pessoas)
+// }
 
-function criaPessoa(nome, sobrenome){
-    
-    return Object.create(pessoaPrototype, {
-        nome: { value: nome },
-        sobrenome: { value: sobrenome }
-    })
-}
-
-const p1 = criaPessoa("Adriano", "Mateus")
-const p2 = criaPessoa("Maria", "Lourdes")
-console.log(p2.falar())
-console.log(p1.beber())
+novasPessoas.delete(2)
+console.log(novasPessoas)
