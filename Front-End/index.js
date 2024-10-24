@@ -1,62 +1,57 @@
-const _velocidade = Symbol('Velocidade')
-
-class Carro {
-    constructor(nome){
+class DispositivoEletronico {
+    constructor(nome) {
         this.nome = nome
-        this[_velocidade] = 0
+        this.ligado = false
     }
 
-    set velocidade (valor) {
-        if(typeof valor !== 'number') return
-        if(valor >= 100 || valor <= 0) return
-        this[_velocidade] = valor
+    ligar() {
+        if(this.ligado === true){
+            console.log(`${this.nome} já ligado`)
+            return
+        }
+
+        this.ligado = true
     }
 
-    get velocidade() {
-        return this[_velocidade]
+    desligar() {
+        if(!this.ligado){
+            console.log(`${this.nome} está desligado`)
+            return
+        }
+        this.ligado = false
     }
 
-    acelerar() {
-        if (this[_velocidade] >= 100) return
-        this[_velocidade]++
+}   
+
+class Smartphone extends DispositivoEletronico {
+    constructor(nome,cor,modelo) {
+        super(nome)
+        this.cor = cor
+        this.modelo = modelo
+    }
+}
+
+class Tablet extends DispositivoEletronico{
+    constructor(nome, temWifi){
+        super(nome)
+        this.temWifi = temWifi
     }
 
-    freiar() {
-        if(this[_velocidade] <= 0) return
-        this[_velocidade] --
+    ligar() {
+        console.log('Alteramos o método ligar')
+    }
+
+    falaOi() {
+        console.log('Oi')
     }
 
 }
 
-const c1 = new Carro('Fusca')
+const s1 = new Smartphone('Iphone', 'Branco', 'Xr')
+// s1.ligar()
+// console.log(s1)
 
-// for(let i = 0; i <= 200; i++){
-//     c1.acelerar()
-// }
-
-c1.velocidade = 55
-// console.log(c1.velocidade)
-
-class Pessoa{
-    constructor(nome, sobrenome){
-        this.nome = nome
-        this.sobrenome = sobrenome
-    }
-
-    get nomeCompleto() {
-        return this.nome + ` ` + this.sobrenome
-    }
-
-    set nomeCompleto (valor) {
-        valor = valor.split(' ')
-        this.nome = valor.shift()
-        this.sobrenome = valor.join(' ')
-    }
-
-}
-
-const p1 = new Pessoa('Adriano', 'Mateus')
-p1.nomeCompleto = 'Mateus Santos Celestino'
-console.log(p1.nome)
-console.log(p1.sobrenome)
-console.log(p1.nomeCompleto)
+const t1 = new Tablet('Ipad', true)
+// console.log(t1.ligado)
+t1.ligar()
+t1.falaOi()
