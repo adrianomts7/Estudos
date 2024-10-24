@@ -1,30 +1,25 @@
-const pessoas = [
-    { id: 3, nome: 'Adriano'},
-    { id: 2, nome: 'Maria'},
-    { id: 1, nome: 'Mateus'}
-]
+class Pessoa {
+    constructor(nome, sobrenome) {
+        this.nome = nome
+        this.sobrenome = sobrenome
+    }
 
-// const novasPessoas = {}
-// for (const pessoa of pessoas){
-//     const { id } = pessoa
-//     novasPessoas[id] = { ... pessoa }
-// }
+    falar() {
+        console.log(`${this.nome} está falando`)
+    }
 
-const novasPessoas = new Map()
-for (const pessoa of pessoas){
-    const { id } = pessoa
-    novasPessoas.set(id, { ... pessoa })
 }
 
-console.log(novasPessoas)
+function Pessoa2 (nome,sobrenome){
+    this.nome = nome
+    this.sobrenome = sobrenome
+}
 
-// for (const [identifier, { id,nome }] of novasPessoas){
-//     console.log(identifier, id, nome)
-// }
+Pessoa2.prototype.falar = function() {
+    console.log(`${this.nome} está falando`)
+}
 
-// for (const pessoas of novasPessoas.keys()){
-//     console.log(pessoas)
-// }
-
-novasPessoas.delete(2)
-console.log(novasPessoas)
+const p1 = new Pessoa("Adriano", "Mateus")
+const p2 = new Pessoa2("Adriano", "Mateus")
+console.log(p1.falar())
+console.log(p2.falar())
