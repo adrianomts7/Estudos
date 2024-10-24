@@ -1,25 +1,62 @@
-class Pessoa {
-    constructor(nome, sobrenome) {
+const _velocidade = Symbol('Velocidade')
+
+class Carro {
+    constructor(nome){
+        this.nome = nome
+        this[_velocidade] = 0
+    }
+
+    set velocidade (valor) {
+        if(typeof valor !== 'number') return
+        if(valor >= 100 || valor <= 0) return
+        this[_velocidade] = valor
+    }
+
+    get velocidade() {
+        return this[_velocidade]
+    }
+
+    acelerar() {
+        if (this[_velocidade] >= 100) return
+        this[_velocidade]++
+    }
+
+    freiar() {
+        if(this[_velocidade] <= 0) return
+        this[_velocidade] --
+    }
+
+}
+
+const c1 = new Carro('Fusca')
+
+// for(let i = 0; i <= 200; i++){
+//     c1.acelerar()
+// }
+
+c1.velocidade = 55
+// console.log(c1.velocidade)
+
+class Pessoa{
+    constructor(nome, sobrenome){
         this.nome = nome
         this.sobrenome = sobrenome
     }
 
-    falar() {
-        console.log(`${this.nome} está falando`)
+    get nomeCompleto() {
+        return this.nome + ` ` + this.sobrenome
+    }
+
+    set nomeCompleto (valor) {
+        valor = valor.split(' ')
+        this.nome = valor.shift()
+        this.sobrenome = valor.join(' ')
     }
 
 }
 
-function Pessoa2 (nome,sobrenome){
-    this.nome = nome
-    this.sobrenome = sobrenome
-}
-
-Pessoa2.prototype.falar = function() {
-    console.log(`${this.nome} está falando`)
-}
-
-const p1 = new Pessoa("Adriano", "Mateus")
-const p2 = new Pessoa2("Adriano", "Mateus")
-console.log(p1.falar())
-console.log(p2.falar())
+const p1 = new Pessoa('Adriano', 'Mateus')
+p1.nomeCompleto = 'Mateus Santos Celestino'
+console.log(p1.nome)
+console.log(p1.sobrenome)
+console.log(p1.nomeCompleto)
