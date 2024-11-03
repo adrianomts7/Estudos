@@ -1,57 +1,32 @@
-class DispositivoEletronico {
-    constructor(nome) {
-        this.nome = nome
-        this.ligado = false
-    }
-
-    ligar() {
-        if(this.ligado === true){
-            console.log(`${this.nome} já ligado`)
-            return
-        }
-
-        this.ligado = true
-    }
-
-    desligar() {
-        if(!this.ligado){
-            console.log(`${this.nome} está desligado`)
-            return
-        }
-        this.ligado = false
-    }
-
-}   
-
-class Smartphone extends DispositivoEletronico {
-    constructor(nome,cor,modelo) {
-        super(nome)
-        this.cor = cor
-        this.modelo = modelo
-    }
+function teste(){
+    console.log('Este é meu teste')
 }
 
-class Tablet extends DispositivoEletronico{
-    constructor(nome, temWifi){
-        super(nome)
-        this.temWifi = temWifi
+class ControleRemoto {
+    constructor(tv){
+        this.tv = tv
+        this.volume = 0
+        teste()
+    }
+    
+    // Método de instancia
+    aumentarVolume(){
+        this.volume += 2
     }
 
-    ligar() {
-        console.log('Alteramos o método ligar')
+    diminuirVolume() {
+        this.volume -= 2
     }
 
-    falaOi() {
-        console.log('Oi')
+    // Método de estatico
+    static soma(x, y){
+        return x + y
     }
 
 }
 
-const s1 = new Smartphone('Iphone', 'Branco', 'Xr')
-// s1.ligar()
-// console.log(s1)
+const controle1 = new ControleRemoto('LG')
+controle1.aumentarVolume()
+console.log(controle1)
 
-const t1 = new Tablet('Ipad', true)
-// console.log(t1.ligado)
-t1.ligar()
-t1.falaOi()
+console.log(ControleRemoto.soma(2, 4))
