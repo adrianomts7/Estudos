@@ -7,93 +7,32 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>Cadastro Usuário</h1>
     <section>
-        <h1>Calculadora</h1>
+        <form action="#" method="post" class="formulario">
+            <label for="nome">Nome</label>
+            <input type="text" name="nome" id="nome" class="validar">
 
-        <table class="calculadora">
-            <tr>
-                <td colspan="4">
-                    <input type="text" class="display">
-                </td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <button class="btn btn-clear">C</button>
-                </td>
-                <td>
-                    <button class="btn btn-num">(</button>
-                </td>
-                <td>
-                    <button class="btn btn-num">)</button>
-                </td>
-                <td>
-                    <button class="btn btn-num">/</button>
-                </td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <button class="btn btn-num">7</button>
-                </td>
-                <td>
-                    <button class="btn btn-num">8</button>
-                </td>
-                <td>
-                    <button class="btn btn-num">9</button>
-                </td>
-                <td>
-                    <button class="btn btn-num">*</button>
-                </td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <button class="btn btn-num">4</button>
-                </td>
-                <td>
-                    <button class="btn btn-num">5</button>
-                </td>
-                <td>
-                    <button class="btn btn-num">6</button>
-                </td>
-                <td>
-                    <button class="btn btn-num">+</button>
-                </td>
-            </tr>
+            <label for="sobrenome">Sobrenome</label>
+            <input type="text" name="sobrenome" id="sobrenome" class="validar">
 
-            <tr>
-                <td>
-                    <button class="btn btn-num">1</button>
-                </td>
-                <td>
-                    <button class="btn btn-num">2</button>
-                </td>
-                <td>
-                    <button class="btn btn-num">3</button>
-                </td>
-                <td>
-                    <button class="btn btn-num">-</button>
-                </td>
-            </tr>
+            <label for="cpf">CPF</label>
+            <input type="text" name="cpf" id="cpf" class="validar cpf">
 
-            <tr>
-                <td>
-                    <button class="btn btn-num">.</button>
-                </td>
-                <td>
-                    <button class="btn btn-num">0</button>
-                </td>
-                <td>
-                    <button class="btn btn-del">&laquo;</button>
-                </td>
-                <td>
-                    <button class="btn btn-eq">=</button>
-                </td>
-            </tr>
+            <label for="usuario">Usuário</label>
+            <input type="text" name="usuario" id="usuario" class="validar usuario">
 
-        </table>
+            <label for="senha">Senha:</label>
+            <input type="password" name="senha" id="senha" class="validar">
+
+            <label for="senhaRepetida">Repetir Senha</label>
+            <input type="password" name="senhaRepetida" id="senha-repetida" class="validar">
+
+            <button type="submit">Enviar</button>
+
+        </form>
     </section>
+    
     <script src="index.js"></script>
 
 </body>

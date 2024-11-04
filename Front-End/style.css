@@ -7,42 +7,47 @@ body{
 
 h1{
     text-align: center;
+    color: white;
 }
 
 section{
-    padding: 10px 0px;
+    padding: 10px 20px;
     margin: 20px auto;
     background: white;
     width: 800px
 }
 
-.calculadora{
-    width: 400px;
+label{
+    font-size: 1.2em;
     display: block;
-    margin: 20px auto;
+    margin: 20px 0px;
 }
 
-.display{
-    font-size: 2em;
-    width: 100%;
-    text-align: right;
+input{
+    display: block;
+    margin: 10px 0;
+    width: 770px;
+    height: 40px;
+    padding: 0px 10px;
+    font-size: 1.3em;
 }
 
-.btn{
-    width: 100%;
+input:hover{
+    border: 2px solid rgb(41, 41, 184);
+}
+
+button{
+    display: block;
+    margin: 30px 0;
+    width: 770px;
     height: 50px;
-    font-size: 1em;
-    border: none;
-    background: #dfdfdf;
-    cursor: pointer;
-    margin: 8px;
-    padding: 5px;
+    background: rgb(41, 41, 184);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.btn:hover{
-    background-color: #999999;
-}
-
-.btn-eq:hover{
-    background:rgb(6, 180, 6);
+.erro{
+    font-size: 12px;
+    color: red;
+    margin: 5px 0px;
 }
