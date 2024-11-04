@@ -1,32 +1,60 @@
-function teste(){
-    console.log('Este é meu teste')
-}
+/// 705.484.450-52 - 070.987.720-03
+class ValidaCPF{
+    constructor(cpfEnviado){
+        Object.defineProperty(this, 'cpfLimpo',{
+            writable: false,
+            enumerable: true,
+            configurable: false,
+            value: cpfEnviado.replace(/\D+/g, '')
+        })
+    }
 
-class ControleRemoto {
-    constructor(tv){
-        this.tv = tv
-        this.volume = 0
-        teste()
+    eSequencia(){
+        return this.cpfLimpo.charAt(0).repeat(11) === this.cpfLimpo
+    }
+
+    geraNovoCpf(){
+        const cpfSemDigitos = this.cpfLimpo.slice(0, -2)
+        const primeiroDigito = ValidaCPF.geraDigito(cpfSemDigitos)
+        const segundoDigito = ValidaCPF.geraDigito(cpfSemDigitos + primeiroDigito)
+
+        this.novoCpf = cpfSemDigitos + primeiroDigito + segundoDigito
+    }
+
+    geraDigito(cpfSemDigitos){
+        let total = 0
+        let reverso = cpfSemDigitos.length + 1
+
+        for(let numeroString of cpfSemDigitos){
+            total += reverso * Number(numeroString)
+            reverso --
+            
+        }
+        
+        const digito = 11 - (total % 11)
+        return digito <= 9 ? String(digito) : '0'
     }
     
-    // Método de instancia
-    aumentarVolume(){
-        this.volume += 2
-    }
+    
+    valida(){
+        if(!this.cpfLimpo) return false
+        if(typeof this.cpfLimpo !== 'string') return false
+        if(this.cpfLimpo.length !== 11) return false
+        if(this.eSequencia()) return false
+        
+        this.geraNovoCpf()
 
-    diminuirVolume() {
-        this.volume -= 2
-    }
-
-    // Método de estatico
-    static soma(x, y){
-        return x + y
+        return this.novoCpf === this.cpfLimpo
     }
 
 }
 
-const controle1 = new ControleRemoto('LG')
-controle1.aumentarVolume()
-console.log(controle1)
+let validacpf = new ValidaCPF('070.987.720-03')
+validacpf = new ValidaCPF('999.999.999-99')
 
-console.log(ControleRemoto.soma(2, 4))
+if(validacpf.valida()){
+    console.log("CPF válido")
+}
+else{
+    console.log('CPF invalido')
+}
