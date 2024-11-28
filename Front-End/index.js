@@ -6,27 +6,75 @@ function rand (min, max){
 
 function esperaAi (msg, tempo){
     return new Promise((resolve, reject) => {
-        if(typeof msg !== 'string') reject(new Error('ERRO'))
-
-        setTimeout(() => {
-            resolve(msg)
+        
+       setTimeout(() => {
+            if (typeof msg !== 'string'){
+                reject('CAI no erro')
+                return
+            }
+            
+            resolve(msg.toUpperCase() + ' - Passei no Promise ')
+            return
         }, tempo)
+
     })
 }
 
-esperaAi('Conexão com o BD', rand(1,3)).then(resposta => {
-    console.log(resposta)
-    return esperaAi('Buscando dados da base', rand(1,3))
-}).then(resposta => {
-    console.log(resposta)
-    return esperaAi(2222, rand(1, 3))
-}).then(resposta => {
-    console.log(resposta)
-}).then(() => {
-    console.log('Exibe os dados na tela.')
-})
-.catch(e => {
-    console.log('ERRO', e)
-})
+const promise = [
+    esperaAi('Promise 1', rand(1,5)),
+    esperaAi('Promise 2', rand(1,5)),
+    esperaAi('Promise 3', rand(1,5)),
+    esperaAi(1000, rand(1,5))
+]
 
-console.log('Isso aqui será exibido antes de qualquer promisse')
+// All - Mostrar tudo na tela, mais se uma der errado ele rejeita todas
+// Promise.all(promise)
+//     .then(function(valor) {
+//         console.log(valor)
+//     })
+//     .catch(function(erro){
+//         console.log(erro)
+//     })
+
+// Race - A primeira que resolver irá mostrar na tela.
+Promise.race(promise)
+    .then(function(valor) {
+        console.log(valor)
+    })
+    .catch(function(erro){
+        console.log(erro)
+    })
+
+// Promise.resolve    
+// function baixaPagina(){
+//     const emCache = false
+
+//     if(emCache){
+//         return Promise.resolve('Página em cache')
+//     }
+//     else{
+//         return esperaAi('Baixer a página', 3000)
+//     }
+
+// }
+
+// baixaPagina()
+//     .then( dadosPaginas => console.log(dadosPaginas))
+//     .catch( e => console.log(e))
+
+// Promise.reject
+function baixaPagina(){
+    const emCache = true
+
+    if(emCache){
+        return Promise.reject('Página em cache')
+    }
+    else{
+        return esperaAi('Baixei a página', 3000)
+    }
+
+}
+
+baixaPagina()
+    .then( dadosPaginas => console.log(dadosPaginas))
+    .catch( e => console.log('ERRO', e))
