@@ -1,67 +1,52 @@
-function rand (min = 0, max = 3){
-    min *= 1000
-    max *= 1000
-    return Math.floor(Math.random() * (max - min) + min)
-}
+// XMLHttpsRequest
+// Requisições Ajax
 
-function esperaAi (msg, tempo){
+const request = obj => {
     return new Promise((resolve, reject) => {
-        
-       setTimeout(() => {
-            if (typeof msg !== 'string'){
-                reject('CAI NO ERRO')
-                return
-            }
-            
-            resolve(msg.toUpperCase() + ' - Passei no Promise ')
-            return
-        }, tempo)
+        const xhr = new XMLHttpRequest()
+        xhr.open(obj.method, obj.url, true)
+        xhr.send()
 
-    })
+        xhr.addEventListener('load', () => {
+            if(xhr.status >= 200 && xhr.status < 300){
+                resolve(xhr.responseText)
+            }
+            else{
+                reject(xhr.statusText)
+            }
+        })
+
+    })  
 }
 
-// esperaAi('Fase 1', rand())
-//     .then(valor => {
-//         console.log(valor)
-//         return esperaAi('Fase 2', rand())
-//     })
-//     .then(fase => {
-//         console.log(fase)
-//         return esperaAi('Fase 3', rand())
-//     })
-//     .then(fase => {
-//         console.log(fase)
-//         return fase
-//     })
-//     .then (fase => {
-//         console.log('Terminamos na fase: ', fase)
-//     })
-//     .catch(e => console.log(e))
+document.addEventListener('click', e => {
+    const el = e.target
+    const tag = el.tagName.toLowerCase()
 
-async function executa(){
+    if (tag === 'a'){
+        e.preventDefault()
+        carregaPagina(el)
+    }
+})
+
+async function carregaPagina(el){
     try{
-        const fase1 = await esperaAi('Fase 1', 1000)
-        console.log(fase1)
-
-        setTimeout(function() {
-            console.log('Essa promise estava pendente', fase1)
-        }, 1000)
-
-        const fase2 = await esperaAi('Fase 2', rand())
-        console.log(fase2)
+        const href = el.getAttribute('href')
         
-        const fase3 = await esperaAi('Fase 3', rand())
-        console.log(fase3)
-   
-        console.log('Terminamos na fase: ', fase3)
+        const objConfig = {
+            method: 'GET',
+            url: href
+        }
+
+        const response = await request(objConfig)
+        carregarResultado(response)
     }
     catch(e){
         console.log(e)
-    }  
-
+    }
 }
-executa()
 
-// pending -> Pendente
-// Fullfiled -> Resolvida
-// rejected -> Rejeitada
+function carregarResultado(response){
+    const resultado = document.querySelector('.resultado')
+    resultado.innerHTML = response
+}
