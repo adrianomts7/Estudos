@@ -1,4 +1,4 @@
-function rand (min, max){
+function rand (min = 0, max = 3){
     min *= 1000
     max *= 1000
     return Math.floor(Math.random() * (max - min) + min)
@@ -9,7 +9,7 @@ function esperaAi (msg, tempo){
         
        setTimeout(() => {
             if (typeof msg !== 'string'){
-                reject('CAI no erro')
+                reject('CAI NO ERRO')
                 return
             }
             
@@ -20,61 +20,48 @@ function esperaAi (msg, tempo){
     })
 }
 
-const promise = [
-    esperaAi('Promise 1', rand(1,5)),
-    esperaAi('Promise 2', rand(1,5)),
-    esperaAi('Promise 3', rand(1,5)),
-    esperaAi(1000, rand(1,5))
-]
-
-// All - Mostrar tudo na tela, mais se uma der errado ele rejeita todas
-// Promise.all(promise)
-//     .then(function(valor) {
+// esperaAi('Fase 1', rand())
+//     .then(valor => {
 //         console.log(valor)
+//         return esperaAi('Fase 2', rand())
 //     })
-//     .catch(function(erro){
-//         console.log(erro)
+//     .then(fase => {
+//         console.log(fase)
+//         return esperaAi('Fase 3', rand())
 //     })
+//     .then(fase => {
+//         console.log(fase)
+//         return fase
+//     })
+//     .then (fase => {
+//         console.log('Terminamos na fase: ', fase)
+//     })
+//     .catch(e => console.log(e))
 
-// Race - A primeira que resolver irá mostrar na tela.
-Promise.race(promise)
-    .then(function(valor) {
-        console.log(valor)
-    })
-    .catch(function(erro){
-        console.log(erro)
-    })
+async function executa(){
+    try{
+        const fase1 = await esperaAi('Fase 1', 1000)
+        console.log(fase1)
 
-// Promise.resolve    
-// function baixaPagina(){
-//     const emCache = false
+        setTimeout(function() {
+            console.log('Essa promise estava pendente', fase1)
+        }, 1000)
 
-//     if(emCache){
-//         return Promise.resolve('Página em cache')
-//     }
-//     else{
-//         return esperaAi('Baixer a página', 3000)
-//     }
-
-// }
-
-// baixaPagina()
-//     .then( dadosPaginas => console.log(dadosPaginas))
-//     .catch( e => console.log(e))
-
-// Promise.reject
-function baixaPagina(){
-    const emCache = true
-
-    if(emCache){
-        return Promise.reject('Página em cache')
+        const fase2 = await esperaAi('Fase 2', rand())
+        console.log(fase2)
+        
+        const fase3 = await esperaAi('Fase 3', rand())
+        console.log(fase3)
+   
+        console.log('Terminamos na fase: ', fase3)
     }
-    else{
-        return esperaAi('Baixei a página', 3000)
-    }
+    catch(e){
+        console.log(e)
+    }  
 
 }
+executa()
 
-baixaPagina()
-    .then( dadosPaginas => console.log(dadosPaginas))
-    .catch( e => console.log('ERRO', e))
+// pending -> Pendente
+// Fullfiled -> Resolvida
+// rejected -> Rejeitada
