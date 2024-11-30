@@ -7,42 +7,12 @@ body{
 
 h1{
     text-align: center;
+    color: black;
 }
 
 section{
-    padding: 10px 0px;
+    padding: 10px 20px;
     margin: 20px auto;
     background: white;
     width: 800px
-}
-
-.calculadora{
-    width: 400px;
-    display: block;
-    margin: 20px auto;
-}
-
-.display{
-    font-size: 2em;
-    width: 100%;
-    text-align: right;
-}
-
-.btn{
-    width: 100%;
-    height: 50px;
-    font-size: 1em;
-    border: none;
-    background: #dfdfdf;
-    cursor: pointer;
-    margin: 8px;
-    padding: 5px;
-}
-
-.btn:hover{
-    background-color: #999999;
-}
-
-.btn-eq:hover{
-    background:rgb(6, 180, 6);
 }

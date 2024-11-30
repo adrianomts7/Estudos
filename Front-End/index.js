@@ -1,57 +1,56 @@
-class DispositivoEletronico {
-    constructor(nome) {
-        this.nome = nome
-        this.ligado = false
+// const request = obj => {
+//     return new Promise((resolve, reject) => {
+//         const xhr = new XMLHttpRequest()
+//         xhr.open(obj.method, obj.url, true)
+//         xhr.send()
+
+//         xhr.addEventListener('load', () => {
+//             if(xhr.status >= 200 && xhr.status < 300){
+//                 resolve(xhr.responseText)
+//             }
+//             else{
+//                 reject(xhr.statusText)
+//             }
+//         })
+
+//     })  
+// }
+
+document.addEventListener('click', e => {
+    const el = e.target
+    const tag = el.tagName.toLowerCase()
+
+    if (tag === 'a'){
+        e.preventDefault()
+        carregaPagina(el)
     }
+})
 
-    ligar() {
-        if(this.ligado === true){
-            console.log(`${this.nome} já ligado`)
-            return
-        }
-
-        this.ligado = true
+async function carregaPagina(el){
+    try{
+        const href = el.getAttribute('href')
+        const response = await fetch(href)
+        
+        if(response.status !== 200) throw new Error("ERRO 404 NOSSO")
+        
+        const html = await response.text()
+        carregarResultado(html)
     }
-
-    desligar() {
-        if(!this.ligado){
-            console.log(`${this.nome} está desligado`)
-            return
-        }
-        this.ligado = false
+    catch (e){
+        console.log(e)
     }
-
-}   
-
-class Smartphone extends DispositivoEletronico {
-    constructor(nome,cor,modelo) {
-        super(nome)
-        this.cor = cor
-        this.modelo = modelo
-    }
+    
 }
 
-class Tablet extends DispositivoEletronico{
-    constructor(nome, temWifi){
-        super(nome)
-        this.temWifi = temWifi
-    }
-
-    ligar() {
-        console.log('Alteramos o método ligar')
-    }
-
-    falaOi() {
-        console.log('Oi')
-    }
-
+function carregarResultado(response){
+    const resultado = document.querySelector('.resultado')
+    resultado.innerHTML = response
 }
 
-const s1 = new Smartphone('Iphone', 'Branco', 'Xr')
-// s1.ligar()
-// console.log(s1)
-
-const t1 = new Tablet('Ipad', true)
-// console.log(t1.ligado)
-t1.ligar()
-t1.falaOi()
+// fetch('pagina4.html', {})
+//     .then(resposta => {
+//         if(resposta.status !== 200) throw new Error('ERRO 404 NOSSO')
+//         return resposta.text()
+//     })
+//     .then(html => console.log(html))
+//     .catch(e => console.error(e))
