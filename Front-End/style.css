@@ -14,5 +14,14 @@ section{
     padding: 10px 20px;
     margin: 20px auto;
     background: white;
-    width: 800px
+}
+
+table{
+    width: 80vw;
+    margin: 0 30px;
+}
+
+td{
+    border: 3px solid black;
+    text-align: center;
 }

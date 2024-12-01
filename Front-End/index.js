@@ -1,56 +1,27 @@
-// const request = obj => {
-//     return new Promise((resolve, reject) => {
-//         const xhr = new XMLHttpRequest()
-//         xhr.open(obj.method, obj.url, true)
-//         xhr.send()
+fetch('pessoas.json')
+    .then(resposta => resposta.json())
+    .then(json => carregaElementosNaPagina(json))
 
-//         xhr.addEventListener('load', () => {
-//             if(xhr.status >= 200 && xhr.status < 300){
-//                 resolve(xhr.responseText)
-//             }
-//             else{
-//                 reject(xhr.statusText)
-//             }
-//         })
-
-//     })  
-// }
-
-document.addEventListener('click', e => {
-    const el = e.target
-    const tag = el.tagName.toLowerCase()
-
-    if (tag === 'a'){
-        e.preventDefault()
-        carregaPagina(el)
-    }
-})
-
-async function carregaPagina(el){
-    try{
-        const href = el.getAttribute('href')
-        const response = await fetch(href)
+function carregaElementosNaPagina(json){
+    const table = document.createElement('table')
+    for (let pessoa of json){
+        const tr = document.createElement('tr')
         
-        if(response.status !== 200) throw new Error("ERRO 404 NOSSO")
-        
-        const html = await response.text()
-        carregarResultado(html)
-    }
-    catch (e){
-        console.log(e)
-    }
-    
-}
+        let td1 = document.createElement('td')
+        td1.innerHTML = pessoa.nome
+        tr.appendChild(td1)
 
-function carregarResultado(response){
+        let td2 = document.createElement('td')
+        td2.innerHTML = pessoa.idade
+        tr.appendChild(td2)        
+
+        let td3 = document.createElement('td')
+        td3.innerHTML = pessoa.salario
+        tr.appendChild(td3)
+        
+        table.appendChild(tr) 
+    }
+
     const resultado = document.querySelector('.resultado')
-    resultado.innerHTML = response
+    resultado.appendChild(table)
 }
-
-// fetch('pagina4.html', {})
-//     .then(resposta => {
-//         if(resposta.status !== 200) throw new Error('ERRO 404 NOSSO')
-//         return resposta.text()
-//     })
-//     .then(html => console.log(html))
-//     .catch(e => console.error(e))
