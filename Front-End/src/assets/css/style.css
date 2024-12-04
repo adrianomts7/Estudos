@@ -8,6 +8,7 @@ body{
 h1{
     text-align: center;
     color: black;
+    margin-bottom: 40px;
 }
 
 section{
@@ -16,12 +17,11 @@ section{
     background: white;
 }
 
-table{
-    width: 80vw;
-    margin: 0 30px;
-}
-
-td{
-    border: 3px solid black;
+.resultado{
     text-align: center;
+    color: rgb(74, 124, 74);
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
 }
