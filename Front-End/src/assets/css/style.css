@@ -17,11 +17,19 @@ section{
     background: white;
 }
 
-.resultado{
-    text-align: center;
-    color: rgb(74, 124, 74);
+.senha-gerada{
     font-size: 2em;
-    font-weight: bold;
-    margin-bottom: 40px;
-    letter-spacing: 2px;
+    color: rgb(20, 20, 97);
+    margin: 40px 0;
+}
+
+input[type="checkbox"]{
+    width: 25px;
+
+}
+
+button{
+    display: block;
+    margin: 40px auto;
+    font-size: 1em;
 }
