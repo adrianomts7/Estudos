@@ -8,13 +8,12 @@ body{
 h1{
     text-align: center;
     color: black;
-    margin-bottom: 40px;
+    margin: 40px 0;
 }
 
 section{
-    padding: 10px 20px;
-    margin: 20px auto;
-    background: white;
+    background-color: white;
+    width: 751px;
 }
 
 .senha-gerada{
@@ -23,13 +22,18 @@ section{
     margin: 40px 0;
 }
 
+label{
+    padding: 10px;
+}
+
 input[type="checkbox"]{
     width: 25px;
-
+    height: 25px;
+    padding: 3px 5px;
 }
 
 button{
     display: block;
-    margin: 40px auto;
+    margin: 50px auto;
     font-size: 1em;
 }
