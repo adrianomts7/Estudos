@@ -1,31 +1,28 @@
-// const nome = 'Adriano'
-// const sobrenome = 'Mateus'
-
-// const falaNome = () => nome + ' ' + sobrenome
-
-// // module.exports.nome = nome
-// // module.exports.sobrenome = sobrenome
-// // module.exports.falaNome = falaNome
-
-// exports.nome = nome
-// exports.sobrenome = sobrenome
-// exports.falaNome = falaNome
-
-// // O this e relacionado com o exports ou modules "Exports é a Abreviação do module.exports"
-// this.qualquerCoisa = 'O que eu quiser exportar'
-
-// // console.log(exports) 
+const soma = function (x , y){
+    return x + y
+}
 
 class Pessoa{
-    constructor(nome){
+    constructor(nome, sobrenome, idade, profissao){
         this.nome = nome
+        this.sobrenome = sobrenome
+        this.idade = idade
+        this.profissao = profissao
+    }
+
+    falandoNome(){
+        console.log(`Olá, Me chamo ${this.nome}` )
+    }
+
+    apresentando(){
+        console.log(`Prazer, Me chamo ${this.nome, this.sobrenome}, Tenho ${this.idade} Anos`)
+    }
+
+    falandoProfissao(){
+        console.log(`Eu trabalho como ${this.profissao}`)
     }
 }
 
-const nome = 'Adriano'
-const sobrenome = 'Mateus'
-
-// Para exportar mais de um
 module.exports = {
-    nome, sobrenome, Pessoa
+    soma, Pessoa
 }
