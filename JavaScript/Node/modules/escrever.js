@@ -25,7 +25,3 @@ function renderizaDados(dados){
 }
 
 lerArquivo(caminhoArquivo)
-
-const dadosArquivos = lerArquivo(caminhoArquivo)
-    .then(dados => console.log(dados))
-    .catch(e => console.log(e))
