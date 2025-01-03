@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+body{
+    background: rgb(20, 20, 97);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+    text-align: center;
+    color: black;
+    margin: 40px 0;
+}
+
+section{
+    background-color: white;
+    width: 751px;
+}
+
+.senha-gerada{
+    font-size: 2em;
+    color: rgb(20, 20, 97);
+    margin: 40px 0;
+}
+
+label{
+    padding: 10px;
+}
+
+input[type="checkbox"]{
+    width: 25px;
+    height: 25px;
+    padding: 3px 5px;
+}
+
+button{
+    display: block;
+    margin: 50px auto;
+    font-size: 1em;
+}
