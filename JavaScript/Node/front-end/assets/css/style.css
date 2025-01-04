@@ -7,33 +7,38 @@ body{
 
 h1{
     text-align: center;
+    margin: 40px 0px;
     color: black;
-    margin: 40px 0;
 }
 
 section{
+    width: 700px;
+    height: 350px;
     background-color: white;
-    width: 751px;
-}
-
-.senha-gerada{
-    font-size: 2em;
-    color: rgb(20, 20, 97);
-    margin: 40px 0;
+    display: block;
+    margin: 40px auto;
 }
 
 label{
-    padding: 10px;
+    display: block;
+    font-size: 1.2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 2px 5px;
 }
 
-input[type="checkbox"]{
-    width: 25px;
-    height: 25px;
-    padding: 3px 5px;
+input{
+    width: 680px;
+    height: 30px;
+    margin: 20px 5px;
+    padding: 7px 5px;
+    border: 2px solid rgb(20, 20, 97);
 }
 
 button{
+    width: 650px;
+    height: 40px;
     display: block;
-    margin: 50px auto;
-    font-size: 1em;
+    margin: 10px auto;
+    background-color: rgb(20, 20, 97);
+    color: #fff;
 }
