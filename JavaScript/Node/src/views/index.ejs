@@ -1,22 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modelo</title>
-</head>
-<body>
-    
-    <section>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint repellat voluptates eveni.</h1>
-        <form action="/" method="post">
-            <label for="cliente">Cliente:</label>
-            <input type="text" name="cliente" id="cliente">
-            <button>Envia</button>
-        </form>
-    </section>
-    
-    <script src="./assets/js/bundle.js"></script>
+<%- include('includes/head')  %>
 
-</body>
-</html>
+<section>
+    <h1><%= umaVariavelLocal %></h1>
+        
+    <form action="/" method="post">
+        <label for="cliente">Cliente:</label>
+        <input type="text" name="cliente" id="cliente">
+        <button>Envia</button>
+    </form>
+</section>
+    
+<%- include('includes/footer') %>

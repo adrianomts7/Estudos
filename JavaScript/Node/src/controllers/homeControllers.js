@@ -14,12 +14,11 @@ const HomeModel = require('../models/HomeModels')
 //     .catch(e => console.log(e))
 
 exports.paginaInicial = (req, res) => {
-    // console.log(req.session.usuario)
-    req.flash('erro', 'Erro ao cadastrar cliente')
-    req.flash('sucess', 'Cliente cadastrado com sucesso')
-    req.info('info', 'site em manutenção')
-    console.log(req.flash('erro'), req.flash('sucess'), req.flash('info'))
-    res.render('index')
+    res.render('index', {
+        titulo: 'Como cria o seu site com animações',
+        descricao: 'Basta estudar a trindade html, css e javascript',
+        numeros: [0, 1, 2, 3, 4, 5, 6, 7, 8,9]
+    })
     return
 }
 
