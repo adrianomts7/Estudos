@@ -22,7 +22,9 @@ const csrf = require('csurf')
 const { middlewareGlobal, checkCsrfError, csrfMiddleware } = require('./src/middlewares/middleware')
 
 app.use(helmet())
+
 app.use(express.urlencoded({ extended: true}))
+app.use(express.json())
 app.use(express.static(path.resolve(__dirname, 'public')))
 
 const sessionOptions = session({
@@ -50,11 +52,9 @@ app.use(checkCsrfError)
 app.use(csrfMiddleware)
 app.use(routes)
 
-app.on('pronto', () => {
-
-})
-
-app.listen(3000, () => {
-    console.log('Acessar http://localhost:3000')
-    console.log('Servidor executando na porta 3000')
+app.on('Pronto', () => {
+    app.listen(3000, () => {
+        console.log('Acessar http://localhost:3000')
+        console.log('Servidor executando na porta 3000')
+    })
 })
