@@ -50,6 +50,7 @@ app.use(csrf())
 app.use(middlewareGlobal)
 app.use(checkCsrfError)
 app.use(csrfMiddleware)
+
 app.use(routes)
 
 app.on('Pronto', () => {
