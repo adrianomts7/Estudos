@@ -1,7 +1,8 @@
 // Não pode esquecer do NEXT nas middleware
 exports.middlewareGlobal = (req, res, next) => {
-    res.locals.umaVariavelLocal = 'Este é o valor da variavel local.'
-    
+    // Capturando os erros e mostrando nas paginas FLASH
+    res.locals.erros = req.flash('erros')
+    res.locals.success = req.flash('success')
     next()
 }
 
