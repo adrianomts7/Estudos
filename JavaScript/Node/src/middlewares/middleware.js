@@ -20,6 +20,7 @@ exports.csrfMiddleware = (req, res, next) => {
     next()
 }
 
+// Se o usuario não tiver logado, mandara um erro na tela dele, pedindo para fazer o login
 exports.loginRequired = (req, res, next) => {
     if(!req.session.user){
         req.flash('erros', 'Você precisa fazer o login')
