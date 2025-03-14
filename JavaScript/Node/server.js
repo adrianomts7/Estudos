@@ -40,12 +40,12 @@ const sessionOptions = session({
 })
 
 app.use(sessionOptions)
+app.use(csrf())
 app.use(flash())
 
 app.set('views', path.resolve(__dirname,'src','views'))
 app.set('view engine', 'ejs')
 
-app.use(csrf())
 // Nossos próprios middlewares
 app.use(middlewareGlobal)
 app.use(checkCsrfError)

@@ -4,3 +4,4 @@ package.json
 node_modules
 .env
 ejs.txt
+output.css
