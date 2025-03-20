@@ -5,3 +5,6 @@ node_modules
 .env
 ejs.txt
 output.css
+docker-compose.yml
+uploads
+*jpg
