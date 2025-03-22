@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const UsersSchema = new mongoose.Schema({
+  id: { type: Number },
   nome: {
     type: String,
     required: [true, 'O nome é obrigatorio'],

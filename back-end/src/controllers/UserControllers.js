@@ -4,10 +4,71 @@ class UsersController {
   async store(req, res) {
     try {
       const novoUser = await User.create(req.body);
-      res.json(novoUser);
+      return res.json(novoUser);
     } catch (e) {
-      res.status(500).json({ message: 'Erro ao cadastrar usuário', Error: e.message });
-      console.log(e);
+      return res.status(500).json({ message: 'Erro ao cadastrar usuário', Error: e.message });
+    }
+  }
+
+  async index(req, res) {
+    try {
+      const users = await User.find();
+      return res.json(users);
+    } catch (e) {
+      return res.json(null);
+    }
+  }
+
+  async show(req, res) {
+    try {
+      const user = await User.findOne({ email: req.params.email });
+      return res.json(user);
+    } catch (e) {
+      return res.status(400).json({ message: 'Erro ao procurar usuario', Error: e.message });
+    }
+  }
+
+  async update(req, res) {
+    try {
+      if (!req.params.email) {
+        return res.status(400).res.json({ message: 'Erro ao tentar atualizar usuario', Error: 'E-mail não informado' });
+      }
+
+      const user = await User.findOne({ email: req.params.email });
+
+      if (!user) {
+        res.status(400).json({ message: 'Usuario não cadastrado', Error: 'Usuario não cadastrado' });
+      }
+
+      const dadosAtualizados = await User.findOneAndUpdate(
+        user,
+        req.body,
+        { new: true },
+      );
+
+      return res.json(dadosAtualizados);
+    } catch (e) {
+      return res.status(400).json({ message: 'Erro ao atualizar o usuario', Error: e.message });
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      if (!req.params.email) {
+        return res.status(400).json({ message: 'Usuario não encontrado' });
+      }
+
+      const user = await User.findOne({ email: req.params.email });
+
+      if (!user) {
+        return res.status(400).json({ message: 'Usuario não encontrado' });
+      }
+
+      const usuarioDeletado = await User.findOneAndDelete(user);
+
+      return res.json(usuarioDeletado);
+    } catch (e) {
+      return res.status(400).json({ message: 'Erro ao deletar usuario', Error: e.message });
     }
   }
 }
