@@ -1,14 +1,13 @@
-version: '4.34.3'
 
 services:
   db:
     image: mysql:8.0
     container_name: mysql_db
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: meu_banco
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user_password
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: "adrinao_projects"
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ""
     ports:
       - "3306:3306"
     volumes:

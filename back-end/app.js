@@ -1,6 +1,10 @@
-import express from 'express';
-import home from './back-end/src/routes/home'
+import dotenv from 'dotenv';
 
+import express from 'express';
+import home from './src/routes/home';
+import user from './src/routes/user';
+
+dotenv.config();
 
 class App {
   constructor() {
@@ -15,8 +19,9 @@ class App {
   }
 
   routes() {
-    this.app.use('/', home)
+    this.app.use('/', home);
+    this.app.use('/user', user);
   }
 }
 
-export default new App().app
+export default new App().app;
