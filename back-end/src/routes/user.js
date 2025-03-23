@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import userControllers from '../controllers/UserControllers';
 
+import loginRequired from '../middlewares/loginRequired';
+
 const router = new Router();
 
 router.post('/', userControllers.store);
-router.get('/', userControllers.index);
+router.get('/', loginRequired, userControllers.index);
 router.get('/:email', userControllers.show);
 router.put('/:email', userControllers.update);
 router.delete('/:email', userControllers.delete);

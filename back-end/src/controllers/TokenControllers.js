@@ -19,9 +19,9 @@ class TokenControllers {
       return res.status(400).json({ message: 'Senha invalida', Error: 'Senha invalida' });
     }
 
-    const { id } = user;
+    const { _id } = user;
     const token = jwt.sign(
-      { id, email },
+      { _id, email },
       process.env.TOKEN_SECRET,
       { expiresIn: process.env.TOKEN_EXPIRATION },
     );
