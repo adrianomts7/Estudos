@@ -11,6 +11,8 @@ class TokenControllers {
 
     const user = await User.findOne({ email: req.body.email });
 
+    console.log(user);
+
     if (!user) {
       return res.status(400).json({ message: 'Usuario não encontrado', Error: 'Usuario não encontrado' });
     }
@@ -19,9 +21,9 @@ class TokenControllers {
       return res.status(400).json({ message: 'Senha invalida', Error: 'Senha invalida' });
     }
 
-    const { _id } = user;
+    const { _id: id } = user;
     const token = jwt.sign(
-      { _id, email },
+      { id, email },
       process.env.TOKEN_SECRET,
       { expiresIn: process.env.TOKEN_EXPIRATION },
     );
