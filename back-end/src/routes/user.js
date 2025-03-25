@@ -6,8 +6,8 @@ import loginRequired from '../middlewares/loginRequired';
 const router = new Router();
 
 // Não deveria existir
-router.get('/', loginRequired, userControllers.index);
-router.get('/:email', userControllers.show);
+// router.get('/', loginRequired, userControllers.index);
+// router.get('/:email', userControllers.show);
 
 router.post('/', userControllers.store);
 router.put('/', loginRequired, userControllers.update);
