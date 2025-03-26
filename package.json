@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Erro: no test specified\" && exit 1",
     "tai": " npx @tailwindcss/cli -i ./JavaScript/src/assets/css/input.css -o ./JavaScript/public/output.css --watch",
-    "dev": "nodemon back-end/server.js",
+    "dev": "nodemon back-end/src/server.js",
     "build": "sucrase ./back-end/src -d ./dist --transforms imports",
     "start": "node dist/server.js"
   },
