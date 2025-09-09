@@ -544,76 +544,76 @@ Entrada: strs = ["dog","racecar","car"]
  * @param {string[]} strs
  * @return {string}
  */
-var longestCommonPrefix = function (strs) {
-  let prefixo = '';
+// var longestCommonPrefix = function (strs) {
+//   let prefixo = '';
 
   
-  const primeiraString = strs[0];
+//   const primeiraString = strs[0];
   
-  if(strs.length < 1) return "";
-  if(primeiraString === "") return "";  
-  if(strs.length === 1) return primeiraString;
+//   if(strs.length < 1) return "";
+//   if(primeiraString === "") return "";  
+//   if(strs.length === 1) return primeiraString;
 
-  const segundaString = strs[1];
-  const terceiraString = strs[2];
-  const quartaString = strs[3];
+//   const segundaString = strs[1];
+//   const terceiraString = strs[2];
+//   const quartaString = strs[3];
 
-  console.log(strs, primeiraString, segundaString, terceiraString);
+//   console.log(strs, primeiraString, segundaString, terceiraString);
 
-  if (strs.length < 3) {
-    for(let i = 0; i <= primeiraString.length; i++) {
+//   if (strs.length < 3) {
+//     for(let i = 0; i <= primeiraString.length; i++) {
       
-      if(primeiraString.charAt(i) === segundaString.charAt(i)) {
-        prefixo += primeiraString.charAt(i);
+//       if(primeiraString.charAt(i) === segundaString.charAt(i)) {
+//         prefixo += primeiraString.charAt(i);
 
-        if (i === primeiraString.length) return prefixo;
+//         if (i === primeiraString.length) return prefixo;
 
-      } else {
-        if(prefixo.length > 0) {
-          return prefixo;
-        } else {
-          return "";
-        }
-      }
+//       } else {
+//         if(prefixo.length > 0) {
+//           return prefixo;
+//         } else {
+//           return "";
+//         }
+//       }
 
-    }
-  } else if(strs.length < 4) {
-    for(let i = 0; i <= primeiraString.length; i++) {
+//     }
+//   } else if(strs.length < 4) {
+//     for(let i = 0; i <= primeiraString.length; i++) {
       
-      if(primeiraString.charAt(i) === segundaString.charAt(i) && primeiraString.charAt(i) === terceiraString.charAt(i)) {
-        prefixo += primeiraString.charAt(i);
+//       if(primeiraString.charAt(i) === segundaString.charAt(i) && primeiraString.charAt(i) === terceiraString.charAt(i)) {
+//         prefixo += primeiraString.charAt(i);
         
-        if (i === primeiraString.length) return prefixo;
+//         if (i === primeiraString.length) return prefixo;
 
-      } else {
-        if(prefixo.length > 0) {
-          return prefixo;
-        } else {
-          return "";
-        }
-      }
+//       } else {
+//         if(prefixo.length > 0) {
+//           return prefixo;
+//         } else {
+//           return "";
+//         }
+//       }
 
-    }
-  } else {
-    for(let i = 0; i <= primeiraString.length; i++) {
+//     }
+//   } else {
+//     for(let i = 0; i <= primeiraString.length; i++) {
       
-      if(primeiraString.charAt(i) === segundaString.charAt(i) && primeiraString.charAt(i) === terceiraString.charAt(i) && primeiraString.charAt(i) === quartaString.charAt(i)) {
-        prefixo += primeiraString.charAt(i);
+//       if(primeiraString.charAt(i) === segundaString.charAt(i) && primeiraString.charAt(i) === terceiraString.charAt(i) && primeiraString.charAt(i) === quartaString.charAt(i)) {
+//         prefixo += primeiraString.charAt(i);
         
-        if (i === primeiraString.length) return prefixo;
+//         if (i === primeiraString.length) return prefixo;
         
-      } else {
-        if(prefixo.length > 0) {
-          return prefixo;
-        } else {
-          return "";
-        }
-      }
+//       } else {
+//         if(prefixo.length > 0) {
+//           return prefixo;
+//         } else {
+//           return "";
+//         }
+//       }
 
-    }
-  }
+//     }
+//   }
 
-};
+// };
 
 // console.log(longestCommonPrefix(['dog', 'racecar', 'car']));
 // console.log(longestCommonPrefix(['flower', 'flow', 'flight']));
@@ -623,3 +623,181 @@ var longestCommonPrefix = function (strs) {
 // console.log(longestCommonPrefix(["flower","flower","flower","flower"]));
 // console.log(longestCommonPrefix(["c","c"]));
 // console.log(longestCommonPrefix(["baab","bacb","b","cbc"]));
+
+
+// const palavra = prompt('Digite uma palavra: ').length;
+// alert(palavra);
+
+// console.log('Programar'.toLowerCase());
+// console.log('Programar'.toUpperCase());
+
+// const normalize = function(palavra) {
+//   return palavra.replace(palavra[0], palavra[0].toUpperCase());
+// }
+
+// console.log(normalize('Hello, world'))
+// console.log(normalize('alameda'))
+
+// const verificarString = function(frase, palavra) {
+//   palavra = palavra.toLowerCase();
+//   frase = frase.toLowerCase();
+//   return frase.includes(palavra) ? true : false;
+// }
+
+// console.log(verificarString('Bahia é o mundo', 'Mundo'));
+// console.log(verificarString('Hello, world', 'Bahia'));
+
+// const palavraInversa = function(palavra) {
+//   return palavra.split('').reverse().join('');
+// }
+
+// console.log(palavraInversa('Python'));
+// console.log(palavraInversa('JavaScript'));
+
+// const polidromo = function(palavra) {
+//   const palavraInversaString = palavraInversa(palavra);
+//   return palavra === palavraInversaString ? true : false;
+// }
+
+// console.log(polidromo('radar'));
+// console.log(polidromo('nada'));
+
+// const contadorVogais = function(palavra) {
+//   let numVogais = 0;
+//   let numConsoantes = 0;
+//   const palavraArr = palavra.toLowerCase().split('');
+
+//   for(const p of palavraArr) {
+    
+//     if (p === 'a' || p === 'e' || p === 'i' || p === 'o' || p === 'u') numVogais ++;
+//     else numConsoantes ++;
+//   }
+
+
+//    console.log(`Vogais: ${numVogais}, Consoantes: ${numConsoantes}`);
+// }
+
+// contadorVogais('ChatGPT')
+// contadorVogais('Bahia')
+
+// const limparEspaco = function(frase) {
+//   return frase.trim();
+// }
+
+// console.log(limparEspaco(" Eu gosto de código "));
+
+// const trocandoVogais = function(frase) {
+//   const fraseArr = frase.toLowerCase().trim().split('');;
+
+//   for(const [ind, letra] of fraseArr.entries()) {
+//     if (letra === 'a' || letra === 'e' || letra === 'i' || letra === 'o' || letra === 'u') frase = frase.replace(frase[ind], '*');
+//   }
+
+//   return frase;
+// }
+
+// console.log(trocandoVogais('Programar é bom'));
+
+// const contadorDePalavras = function(palavra) {
+//   const palavraArr = palavra.split(' ');
+//   const palavraUnicas = [];
+//   for(const p of palavraArr) {
+//     if (!palavraUnicas.includes(p)) palavraUnicas.push(p);
+//   }
+
+//   return palavraUnicas;
+
+// }
+
+// console.log(contadorDePalavras('hoje é hoje'));
+
+// /*
+// Frequência de caracteres
+// Mostre quantas vezes cada letra aparece.
+// Exemplo: "banana" → b:1, a:3, n:2.
+// */
+
+// const frequenciaCaracteres = function(palavra) {
+//   const palavraArr = palavra.toLowerCase().trim().split('');
+//   let palavrasNum = {};
+  
+//   for(let p of palavraArr) {
+   
+//     palavrasNum[p] ? palavrasNum[p]++ : palavrasNum[p] = 1;
+
+//   }
+
+//   console.log(palavrasNum);
+// }
+
+// console.log(frequenciaCaracteres('banana'));
+
+function contarPalavras(texto) {
+  const palavrasArr = texto.toLowerCase().trim().split(' ');
+  const palavrasRepetidas = {};
+
+  for(const palavra of palavrasArr) {
+    palavrasRepetidas[palavra] ? palavrasRepetidas[palavra]++ : palavrasRepetidas[palavra] = 1;
+  }
+
+  return palavrasRepetidas;
+}
+
+const frase = "JavaScript é incrível! Aprender JavaScript é divertido.";
+// console.log(contarPalavras(frase));
+// Saída esperada: { javascript: 2, é: 2, incrível: 1, aprender: 1, divertido: 1 }
+
+function ehPalindromo(frase) {
+  frase = frase.toLowerCase();
+  const fraseReverse = frase.split('').join('');
+
+  return frase === fraseReverse ? true : false;
+}
+
+// console.log(ehPalindromo("Socorram-me, subi no ônibus em Marrocos")); // true
+
+const csv = `nome,idade,cidade
+Adriano,20,São Paulo
+Maria,25,Rio de Janeiro`;
+
+function parseCSV(textoCSV) {
+  const textoArr = textoCSV.split('\n');
+  const propriedades = textoArr[0].split(',');
+  const listaPessoas = [];
+  const valores = textoArr.slice(1);
+  
+  for(const valor of valores) {
+    let pessoa = valor.split(',');
+    const objeto = {};
+
+    for(let i = 0; i < propriedades.length; i++) {
+      // Se for número, ele converte para número
+      // se for número no if, ele retornará false -> quer dizer que é número
+      if (!isNaN(pessoa[i])) pessoa[i] = Number(pessoa[i]);
+
+      objeto[propriedades[i]] = pessoa[i];
+    }
+    listaPessoas.push(objeto);
+
+  }
+  
+  return listaPessoas;
+
+}   
+
+console.log(parseCSV(csv));
+// Saída esperada:
+// [
+//   { nome: "Adriano", idade: "20", cidade: "São Paulo" },
+//   { nome: "Maria", idade: "25", cidade: "Rio de Janeiro" }
+// ]
+
+
+function extrairEmails(texto) {
+  const emailRegex = /\S+@\S+\.\S+/g;
+  return texto.match(emailRegex);
+}
+
+const conteudo = "Me envie um email para teste@exemplo.com ou para contato@site.com.br";
+// console.log(extrairEmails(conteudo));
+// Saída esperada: ["teste@exemplo.com", "contato@site.com.br"]
