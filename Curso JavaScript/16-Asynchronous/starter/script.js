@@ -175,9 +175,9 @@ const getCountryData = function(country) {
   }
 
 
-btn.addEventListener('click', function() {
-  getCountryData('india');
-})
+// btn.addEventListener('click', function() {
+//   getCountryData('india');
+// })
 
 // getCountryData('kajaksdjhaks');
 
@@ -296,6 +296,7 @@ Promise.resolve('Resolved promise 1').then(res => console.log(res));
 console.log('Test end');
 */
 
+/*
 const loterryPromise = new Promise(function(resolve, reject) {
   
   console.log('Lotter draw is happening')
@@ -328,3 +329,75 @@ wait(1)
     return wait(4)
   })
   .then(() => console.log('4 seconds passed'));
+
+*/
+
+// navigator.geolocation.getCurrentPosition(position => console.log(position), err => console.log(err));
+// console.log('Getting position');
+
+const getPosition = function() {
+  return new Promise( function(resolve, reject){
+    navigator.geolocation.getCurrentPosition(resolve, reject)
+  }); 
+}
+
+getPosition().then( pos => console.log(pos) );
+
+const whereAmI = function() {
+  getPosition().then( pos => { 
+    const { latitude: lat, longitude: lng } = pos.coords 
+
+  return fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`)
+    
+  })
+    .then( response => {
+      if (!response.status) 
+        throw new Error('problem with geocoding');
+
+      return response.json() 
+    })
+    .then( data => { 
+      const country = data.countryName;
+
+      console.log(`Você está em ${data.city}, ${country}`);
+
+      if (!country)
+        throw new Error('Country not found')
+
+      return fetch(`https://restcountries.com/v2/name/${country}`);
+
+      })
+    .then( response => { 
+      
+      if (!response.status) 
+        throw new Error('Country not found');
+
+      return response.json()
+    })
+    .then( data => {
+      
+      const country = data[0];
+
+      if (!country)
+        throw new Error(`Country not found`)
+
+      renderCountry(country);
+
+      const neighbour = country.borders?.[0];
+
+      if (!neighbour || neighbour === 'undefined')
+        throw new Error('No neighbour found!');
+
+      return fetch(`https://restcountries.com/v2/alpha/${neighbour}`);
+    })
+    .then( response => response.json() )
+    .then(data => renderCountry(data, 'neighbour'))
+    .catch( err => { 
+      console.error(err) 
+      renderError(err.message)
+    })
+    .finally( () => countriesContainer.style.opacity = 1 );
+}
+
+btn.addEventListener('click', whereAmI);
+
