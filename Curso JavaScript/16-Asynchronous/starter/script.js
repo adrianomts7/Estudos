@@ -335,6 +335,7 @@ wait(1)
 // navigator.geolocation.getCurrentPosition(position => console.log(position), err => console.log(err));
 // console.log('Getting position');
 
+/*
 const getPosition = function() {
   return new Promise( function(resolve, reject){
     navigator.geolocation.getCurrentPosition(resolve, reject)
@@ -401,3 +402,84 @@ const whereAmI = function() {
 
 btn.addEventListener('click', whereAmI);
 
+*/
+
+///////////////////////////////////////
+// Desafio de Código #2
+
+/*
+Construa a funcionalidade de carregamento de imagens que acabei de mostrar na tela.
+
+As tarefas não são muito descritivas desta vez, para que você possa descobrir algumas coisas por conta própria.
+Finja que está trabalhando sozinho 😉
+
+PARTE 1
+1. Crie uma função chamada 'createImage' que recebe 'imgPath' como parâmetro.
+   Essa função deve retornar uma Promise que:
+   - Cria uma nova imagem (use document.createElement('img'));
+   - Define o atributo .src com o caminho da imagem fornecido;
+   - Quando a imagem terminar de carregar, deve:
+     - Adicionar a imagem ao elemento do DOM com a classe 'images';
+     - Resolver a Promise.
+   - O valor retornado na resolução da Promise deve ser o próprio elemento da imagem.
+   - Caso ocorra um erro ao carregar a imagem (evento 'error'), a Promise deve ser rejeitada.
+
+Se esta parte for muito difícil, basta assistir à primeira parte da solução.
+
+PARTE 2
+2. Consuma a Promise usando .then e também adicione um manipulador de erro;
+3. Após a imagem carregar, pause a execução por 2 segundos usando a função wait que criamos anteriormente;
+4. Após os 2 segundos, esconda a imagem atual (defina display como 'none') e carregue uma segunda imagem
+   (DICA: Use o elemento de imagem retornado pela Promise createImage para esconder a imagem atual.
+   Você precisará de uma variável global para isso 😉);
+5. Após a segunda imagem carregar, pause a execução por mais 2 segundos;
+6. Após os 2 segundos, esconda a imagem atual.
+
+DADOS DE TESTE:
+- Imagens na pasta 'img';
+- Teste o manipulador de erro passando um caminho de imagem incorreto;
+- Configure a velocidade da rede para 'Fast 3G' na aba Network do DevTools,
+  caso contrário as imagens carregam rápido demais.
+
+BOA SORTE 😀
+*/
+
+const createImage = function(imgPath) {
+  return new Promise(function(resolve, reject) {
+    const container = document.querySelector('.images');
+
+    if (imgPath.indexOf('.jpg') === -1) return reject(new Error('Image not found'));
+
+    const image = document.createElement('img');
+    image.src = imgPath;
+
+    image.addEventListener('load', function() {
+      image.classList.add('images')
+      container.appendChild(image);
+      resolve(image);
+    })
+    
+    image.addEventListener('error', function() {
+      reject(new Error('Image not found'));     
+    })
+  })
+}
+
+let imgParou = false;
+
+createImage('../img/img-1.jpg')
+  .then(img => {
+    return new Promise(resolve => setTimeout(resolve, 2000))
+      .then(() => {
+        img.style.display = 'none';
+
+        return createImage('../img/img-2.jpg')
+      })
+    })    
+  .then(img => {
+    return new Promise(resolve => setTimeout(resolve, 2000))
+      .then(() => {
+        img.style.display = 'none';
+      })
+  })
+  .catch(err => console.error(err));
