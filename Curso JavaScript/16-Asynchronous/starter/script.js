@@ -494,26 +494,55 @@ const getPosition = function() {
 
 // fetch(`https://restcountries.com/v2/name/${country}`).then(res => console.log(res));
 const whereAmI = async function() {
-  const pos = await getPosition();
-  
-  const {latitude: lat, longitude: lng} = pos.coords; 
-  
-  const resGeo = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`);
-  
-  if (!res.ok) throw new Error('Problem getting location data');
-  
-  const dataGeo = await resGeo.json();
-   console.log(dataGeo);
+  try {
+    const pos = await getPosition();
+    
+    const {latitude: lat, longitude: lng} = pos.coords; 
+    
+    const resGeo = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`);
+    
+    if (!resGeo.ok) throw new Error('Problem getting location data');
 
-  const res = await fetch(`https://restcountries.com/v2/name/${dataGeo.countryName}`);
+    const dataGeo = await resGeo.json();
+  
+    const res = await fetch(`https://restcountries.com/v2/name/${dataGeo.countryName}`);
+    if (!res.ok) throw new Error('Problem getting country')
+    
+    const data = await res.json();
+    countriesContainer.style.opacity = 1;
+    renderCountry(data[0]);
 
-  if (!res.ok) throw new Error('Problem getting country')
-  const data = await res.json();
-  countriesContainer.style.opacity = 1;
-  renderCountry(data[0]);
-}
+    return `${dataGeo.city}, ${dataGeo.countryName}`;
+  } catch (err) {
+    console.error(err);
 
-whereAmI();
+    throw err;
+  }
+};
+
+// whereAmI();
+
+console.log('1: Will get location');
+
+// const city = whereAmI();
+// console.log(city);
+
+// whereAmI()
+//   .then(city => console.log(city))
+//   .catch((err) => console.error(err.message))
+
+(async function() {
+  try {
+    const res = await whereAmI();
+
+    if (!res) throw new Error('2: Error');
+
+    console.log(`2: ${res}`);
+  } catch (err) {
+    console.error(`2: ${err.message}`);
+  }
+  console.log('3. Finished getting location');
+})();
 
 // Forçando um erro para testar o método try/catch
 // try {
