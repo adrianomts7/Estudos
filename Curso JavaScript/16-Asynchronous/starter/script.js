@@ -499,14 +499,27 @@ const whereAmI = async function() {
   const {latitude: lat, longitude: lng} = pos.coords; 
   
   const resGeo = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`);
+  
+  if (!res.ok) throw new Error('Problem getting location data');
+  
   const dataGeo = await resGeo.json();
    console.log(dataGeo);
 
   const res = await fetch(`https://restcountries.com/v2/name/${dataGeo.countryName}`);
-  console.log(res);
+
+  if (!res.ok) throw new Error('Problem getting country')
   const data = await res.json();
   countriesContainer.style.opacity = 1;
   renderCountry(data[0]);
 }
 
 whereAmI();
+
+// Forçando um erro para testar o método try/catch
+// try {
+//   let y = 1;
+//   const x = 2;
+//   x = 3;
+// } catch (err) {
+//   alert(err.message);
+// }
