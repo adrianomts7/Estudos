@@ -444,6 +444,7 @@ DADOS DE TESTE:
 BOA SORTE 😀
 */
 
+/*
 const createImage = function(imgPath) {
   return new Promise(function(resolve, reject) {
     const container = document.querySelector('.images');
@@ -483,3 +484,29 @@ createImage('../img/img-1.jpg')
       })
   })
   .catch(err => console.error(err));
+*/
+
+const getPosition = function() {
+  return new Promise(function(resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  })
+}
+
+// fetch(`https://restcountries.com/v2/name/${country}`).then(res => console.log(res));
+const whereAmI = async function() {
+  const pos = await getPosition();
+  
+  const {latitude: lat, longitude: lng} = pos.coords; 
+  
+  const resGeo = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`);
+  const dataGeo = await resGeo.json();
+   console.log(dataGeo);
+
+  const res = await fetch(`https://restcountries.com/v2/name/${dataGeo.countryName}`);
+  console.log(res);
+  const data = await res.json();
+  countriesContainer.style.opacity = 1;
+  renderCountry(data[0]);
+}
+
+whereAmI();
