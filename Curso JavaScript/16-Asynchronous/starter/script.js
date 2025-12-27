@@ -556,6 +556,7 @@ console.log('1: Will get location');
 
 */
 
+/*
 const get3Countries = async function(c1, c2, c3) {
   try {
 
@@ -575,3 +576,42 @@ const get3Countries = async function(c1, c2, c3) {
 };
 
 get3Countries('brasil', 'portugal', 'spain');
+*/
+
+// Retorna a promise que terminar primeiro
+;(async function() {
+  const res = await Promise.race([getJSON(`https://restcountries.com/v2/name/italy`), getJSON(`https://restcountries.com/v2/name/mexico`), getJSON(`https://restcountries.com/v2/name/egypt`)]);
+
+  console.log(res[0]);
+})();
+
+const timeout = function(sec) {
+  return new Promise(function(_, reject) {
+    setTimeout(function() {
+      reject(new Error('Request took too long!'));
+    }, sec * 1000)
+  })
+}
+
+Promise.race([
+  getJSON(`https://restcountries.com/v2/name/tanzania`),
+  timeout(0.1)
+])
+  .then( res => console.log(res[0]) )
+  .catch(err => console.error(err));
+
+// Ela retorna todas as promises, seja as que foram resolvidas ou rejeitadas.
+Promise.allSettled([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Success')
+])
+  .then( res => console.log(res) );
+
+// Ignora as promises rejeitadas e retorna a primeira promise resolvida
+Promise.any([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Success')
+])
+  .then( res => console.log(res) );
