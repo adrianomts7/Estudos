@@ -466,8 +466,6 @@ const createImage = function(imgPath) {
   })
 }
 
-let imgParou = false;
-
 createImage('../img/img-1.jpg')
   .then(img => {
     return new Promise(resolve => setTimeout(resolve, 2000))
@@ -578,6 +576,7 @@ const get3Countries = async function(c1, c2, c3) {
 get3Countries('brasil', 'portugal', 'spain');
 */
 
+/*
 // Retorna a promise que terminar primeiro
 ;(async function() {
   const res = await Promise.race([getJSON(`https://restcountries.com/v2/name/italy`), getJSON(`https://restcountries.com/v2/name/mexico`), getJSON(`https://restcountries.com/v2/name/egypt`)]);
@@ -615,3 +614,93 @@ Promise.any([
   Promise.resolve('Success')
 ])
   .then( res => console.log(res) );
+*/
+
+///////////////////////////////////////
+// Desafio de Código #3
+
+/* 
+PARTE 1
+Escreva uma função assíncrona 'loadNPause' que recrie o Desafio de Código #2,
+desta vez utilizando async/await (apenas a parte em que a Promise é consumida).
+Compare as duas versões, pense sobre as principais diferenças e veja qual delas
+você prefere.
+
+Não se esqueça de testar o tratamento de erros e de configurar a velocidade
+da rede para 'Fast 3G' na aba Network das ferramentas de desenvolvedor.
+
+PARTE 2
+1. Crie uma função assíncrona 'loadAll' que receba um array de caminhos de imagens 'imgArr';
+2. Use o método .map para percorrer o array e carregar todas as imagens usando
+   a função 'createImage' (chame o array resultante de 'imgs');
+3. Observe o array 'imgs' no console. Ele é como você esperava?
+4. Utilize uma função combinadora de Promises para realmente obter as imagens
+   a partir do array 😉
+5. Adicione a classe 'parallel' a todas as imagens (ela possui alguns estilos CSS).
+
+DADOS DE TESTE:
+['img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg'].
+
+Para testar, desative a função 'loadNPause'.
+
+BOA SORTE 😀
+*/
+
+const createImage = function(imgPath) {
+  return new Promise(function(resolve, reject) {
+    const container = document.querySelector('.images');
+
+    if (imgPath.indexOf('.jpg') === -1) return reject(new Error('Image not found'));
+
+    const image = document.createElement('img');
+    image.src = imgPath;
+
+    image.addEventListener('load', function() {
+      image.classList.add('images')
+      container.appendChild(image);
+      resolve(image);
+    })
+    
+    image.addEventListener('error', function() {
+      reject(new Error('Image not found'));     
+    })
+  })
+}
+
+const wait = function(seconds) {
+  return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+}
+
+const loadNPause = async function() {
+  try {
+    
+    const loadImageNPause = async function(imgPath) {
+      let img = await createImage(imgPath);
+      await wait(2);
+      img.style.display = 'none';
+    }
+
+    await loadImageNPause('../img/img-1.jpg');
+    await loadImageNPause('../img/img-2.jpg');
+    await loadImageNPause('../img/img-3.jpg');
+    
+    
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// loadNPause();
+
+const loadAll = async function(imgArray) {
+  try {
+    const imgs = imgArray.map( async img => await createImage(img));
+
+    (await Promise.all(imgs)).forEach(img => img.classList.add('parallel'));
+    
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+loadAll(['../img/img-1.jpg', '../img/img-2.jpg', '../img/img-3.jpg']);
