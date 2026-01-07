@@ -87,3 +87,18 @@ state.user.loggedIn = false;
 
 console.log(stateClone);
 console.log(stateDeepClone);
+
+class Person {
+  #greating = 'Hey';
+
+  constructor(name) {
+    this.name = name;
+    console.log(`${this.#greating}, ${this.name}`);
+  }
+
+}
+
+const adriano = new Person('Adriano');
+
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
