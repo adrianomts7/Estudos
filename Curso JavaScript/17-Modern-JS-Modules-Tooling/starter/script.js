@@ -67,7 +67,10 @@ ShoppingCart2.addToCart('pizza', 2);
 console.log(ShoppingCart2);
 */
 
-import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+// Forma antiga (Sem Parcel)
+// import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+// Nova Forma (Com Parceç)
+import cloneDeep from 'lodash-es';
 
 const state = {
   cart: [
