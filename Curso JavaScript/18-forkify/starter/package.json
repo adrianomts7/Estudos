@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "core-js": "^3.47.0",
+    "fractional": "^1.0.0",
+    "fracty": "^1.0.12",
     "parcel": "^2.16.3",
     "regenerator-runtime": "^0.14.1"
   },
