@@ -12,17 +12,17 @@ import 'regenerator-runtime/runtime';
 
 const controlRecipes = async function() {
   try {
-
+    
     const id = window.location.hash.slice(1);
-
+    
     if (!id) return;
-
+    
     recipeView.renderSpinner();
     
     await model.loadRecipe(id);
-
+    
     recipeView.render(model.state.recipe);
-
+    
   } catch(err) {
     recipeView.renderError();
   } 
@@ -31,9 +31,9 @@ const controlRecipes = async function() {
 const controlSearchResults = async function() {
   try {
     resultsView.renderSpinner();
-
+    
     const query = searchView.getQuery();
-
+    
     if (!query) return;
 
     await model.loadSearchResults(query);
@@ -50,11 +50,17 @@ const controlSearchResults = async function() {
 
 const controlPagination = function(goToPage) {
   resultsView.render(model.getSearchResultsPage(goToPage));
-  paginationView.render(model.state.search)
+  paginationView.render(model.state.search);
+}
+
+const controlServings = function(newServings) {
+  model.updateServings(newServings);
+  recipeView.render(model.state.recipe);
 }
 
 const init = function() {
   recipeView.addHandlerRender(controlRecipes);
+  recipeView.addHandlerUpdateServings(controlServings);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
 }
