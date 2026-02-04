@@ -74,12 +74,12 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our menu</h2>
-      { pizzas.length > 0 && 
+      { pizzas.length > 0 ? 
         <ul className="pizzas">
           {pizzas.map((pizza) => (
             <Pizza pizzaObj={pizza} key={pizza.name} />
           ))}
-        </ul> }
+          </ul> : <p>We're still working on our menu. Please come back later :)</p> }
       {/* <Pizza name="Pizza Spinaci" ingredients="Tomato, mozarella, spinach, and ricotta cheese" photoName="pizzas/spinaci.jpg" price={10} />
       <Pizza name="Pizza Funghi" ingredients="Tomato, mushrooms" photoName='pizzas/funghi.jpg' price={12} /> */}
     </main>
@@ -107,12 +107,12 @@ function Footer() {
 
   return (
     <footer className="footer">
-      { isOpen && (
+      { isOpen ? (
         <div className="order">
           <p>We're open until {closeHour}:00. Come visit us or order online</p> 
           <button className="btn">Open</button>
         </div>
-      )}
+      ) : <p>We're happy to welcome you between {openHour}:00 and {closeHour}:00.</p>}
     </footer>
   );
   // return React.createElement('footer', null, "We're currently open!");
