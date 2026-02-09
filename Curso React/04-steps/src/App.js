@@ -8,6 +8,14 @@ const messages = [
 export default function App() {
   const step = 1;
 
+  function handlePrevious() {
+
+  }
+
+  function handleNext() {
+
+  }
+
   return (
     <div className="steps">
       <div className="numbers">
@@ -19,8 +27,8 @@ export default function App() {
       <p className="message">Step {step}: {messages[step - 1]}</p>
 
       <div className="buttons">
-        <button style={styleButtons}>Previous</button>
-        <button style={styleButtons}>Next</button>
+        <button style={styleButtons} onClick={handlePrevious}>Previous</button>
+        <button style={styleButtons} onClick={handleNext}>Next</button>
       </div>
 
     </div> 
