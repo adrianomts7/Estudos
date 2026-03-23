@@ -1,49 +1,100 @@
-import { useState } from "react";
+  import { useState } from "react";
 
-const faqs = [
-  {
-    title: "Where are these chairs assembled?",
-    text:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, quaerat temporibus quas dolore provident nisi ut aliquid ratione beatae sequi aspernatur veniam repellendus."
-  },
-  {
-    title: "How long do I have to return my chair?",
-    text:
-      "Pariatur recusandae dignissimos fuga voluptas unde optio nesciunt commodi beatae, explicabo natus."
-  },
-  {
-    title: "Do you ship to countries outside the EU?",
-    text:
-      "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+  export default function App() {
+    return (
+      <div className="container">
+        <Step />
+      </div>
+    );
   }
-];
 
-export default function App() {
-  return (
-    <div><Accordion data={faqs}/></div>
-  );
-}
+  function Step() {
+    const [value, setValue] = useState(0);
+    const [passoInput, setPassoInput] = useState(1);
+    const [history, setHistory] = useState([]); 
+    const [operations, setOperations] = useState(0);
 
-function Accordion({data}) {
-  return <div className="accordion">
-    {
-      data.map( (data, i) => <AccordionItem number={i} title={data.title} text={data.text} key={data.title} /> )
+    function handlerAumentar(e) {
+      e.preventDefault();
+      if (passoInput <= 0) return;
+      
+      setHistory( prev => [...prev, value]);  
+      setValue((prev) => (prev + passoInput));
+      setOperations(op => op + 1);
     }
+
+    function handlerDiminuir(e) {
+      e.preventDefault();
+
+      if (passoInput <= 0) return
+
         
-  </div>;
-}
+      setHistory( prev => [...prev, value]);  
+      setValue((prev) => (prev - passoInput));
+      setOperations(op => op + 1);
+    }
 
-function AccordionItem({number, title, text}) {
-  const [isOpen, setIsOpen] = useState(false);
+    function handlePasso(e) {
+      const passoInput = Number(e.target.value);
 
-  function handleToggle() {
-    setIsOpen(isOpen => !isOpen);
+      if (passoInput > 10 || passoInput < -10) return;
+
+      setPassoInput(passoInput);
+    }
+
+    function handleReset() {
+      setValue(0);
+      setPassoInput(1);
+      setHistory([]);
+      setOperations(0);
+    }
+
+    function handleUndo(e) {
+      e.preventDefault();
+      if (history.length === 0)return
+
+      const ultimoElementoHistory = history[history.length - 1];
+
+      setValue(ultimoElementoHistory);
+      setHistory(prev => prev.slice(0, -1));
+      setOperations(op => op - 1);
+    }
+
+    return (
+      <div>
+        <form className="form">
+          <div className="input__area">
+            <label>Deseja pular de quanto em quanto? </label>
+            <input type="number" value={passoInput} onChange={handlePasso} />
+          </div>
+
+          <p className="passos">{value}</p>
+
+          <div className="buttons">
+            <button className="button diminuir" onClick={handlerDiminuir}>
+              -
+            </button>
+            <button className="button aumentar" onClick={handlerAumentar}>
+              +
+            </button>
+
+          </div>
+
+          <div className="buttons">
+            <button className="reset button buttons__secondary" onClick={handleReset}>Reset</button>
+
+            <button className="button buttons__secondary undo" onClick={handleUndo}>Undo</button>  
+                
+          </div>
+
+        </form>
+
+        <div className="history__container">
+          {
+            history && history.map( history => <p className="history" key={history}>{history}</p> )
+          }
+        </div>
+
+      </div>
+    );
   }
-
-  return <div className={`item ${isOpen ? 'open' : ''}`} onClick={handleToggle}>
-    <p className="number">{number < 9 ? `0${number + 1}` : number}</p>
-    <p className="title">{title}</p>
-    <p className="icon">{isOpen ? '-' : '+' }</p>
-    { isOpen && <div className="  content-box">{text}</div>}
-  </div>
-}
