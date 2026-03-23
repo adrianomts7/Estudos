@@ -1,57 +1,49 @@
 import { useState } from "react";
 
-function App() {
+const faqs = [
+  {
+    title: "Where are these chairs assembled?",
+    text:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, quaerat temporibus quas dolore provident nisi ut aliquid ratione beatae sequi aspernatur veniam repellendus."
+  },
+  {
+    title: "How long do I have to return my chair?",
+    text:
+      "Pariatur recusandae dignissimos fuga voluptas unde optio nesciunt commodi beatae, explicabo natus."
+  },
+  {
+    title: "Do you ship to countries outside the EU?",
+    text:
+      "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+  }
+];
+
+export default function App() {
   return (
-    <div>
-      <Counter />
-    </div>
+    <div><Accordion data={faqs}/></div>
   );
 }
 
-function Counter() {
-  const [count, setCount] = useState(0);
-  const [step, setStep] = useState(1);
-
-  const data = new Date();
-  data.setDate(data.getDate() + count);
-
-  function handleClickButtonCount(e, decrease = false, step, count) {
-    e.preventDefault();
-    
-    !decrease ? setCount(count += step) : setCount(count -= step);
-  } 
-
-  function handleInputStep(value) {
-    setStep(value);
-  }
-
-  function resetNumbersCountStep() {
-    setCount(0);
-    setStep(1);
-  }
-
-  return (
-    <div>
-      <div className="steps">
-        <input type="range" min={1} max={10} value={step} step={1} onChange={e => setStep(+e.target.value)} /> <p>{step > 10 ? 10 : step}</p>
-      </div>
-      
-      <div className="counter">
-        <button onClick={e => handleClickButtonCount(e, true, step, count)}>-</button>
-        <input type="text" value={step} onChange={e => handleInputStep(+e.target.value)} />
-        <button onClick={e => handleClickButtonCount(e, false, step, count)}>+</button>
-      </div>
-
-      {
-        count !== 1 || count !== 0 ?
-        <button onClick={resetNumbersCountStep}>Reset</button> :
-        null
-      }
-
-      <p>{count} days { count > 0 ? 'from today' :'ago'}   {data.toDateString()}</p>
-
-    </div>
-  );
+function Accordion({data}) {
+  return <div className="accordion">
+    {
+      data.map( (data, i) => <AccordionItem number={i} title={data.title} text={data.text} key={data.title} /> )
+    }
+        
+  </div>;
 }
 
-export default App;
+function AccordionItem({number, title, text}) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function handleToggle() {
+    setIsOpen(isOpen => !isOpen);
+  }
+
+  return <div className={`item ${isOpen ? 'open' : ''}`} onClick={handleToggle}>
+    <p className="number">{number < 9 ? `0${number + 1}` : number}</p>
+    <p className="title">{title}</p>
+    <p className="icon">{isOpen ? '-' : '+' }</p>
+    { isOpen && <div className="  content-box">{text}</div>}
+  </div>
+}
