@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: 'Arial', sans-serif;
+  background-color: #212529;
+}
+
+.header {
+  width: 80rem;
+  margin: 5.5rem auto;
+}
+
+.header h1 {
+  color: #339af0;
+  font-size: 3.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.header p {
+  font-size: 1.4rem;
+  color: #e7f5ff;
+  margin-bottom: 1.2rem;
+}
+
+.data {
+  color: #f4f4f4;
+  font-weight: bold;
+}
+
+.lista__transacoes {
+  display: block;
+  width: 80rem;
+  margin: 5rem auto;
+  list-style: none;
+}
+
+.mensagem_nenhuma-transacao {
+  display: block;
+  text-align: center;
+  font-size: 1.6rem;
+  color: #339af0;
+  margin: 12rem 0;
+  font-weight: bolder;
+}
+
+.transacao {
+  color: #e7f5ff;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  border: 1px solid #e7f5ff;
+  border-radius: 9px;
+}
+
+.nome__ativo {
+  display: inline-block;
+  font-size: 1.8rem;
+  border-bottom: 5px outset #339af0;
+  margin-bottom: 1.2rem;
+}
+
+.tipo__ativo {
+  display: inline-block;
+  color: #37b24d;
+  margin-left: 0.2rem;
+  font-size: 1.3rem;
+}
+
+.area__dados-ativo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  font-size: 1.4rem;
+}
+
+.quantidade__ativos-dinamico {
+  color: #339af0;
+}
+
+.preco__medio-dinamico {
+  color: #37b24d;
+}
