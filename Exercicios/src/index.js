@@ -60,10 +60,9 @@
     const transacoesCompra = transacoes.slice().filter(transacao => transacao.operation === 'BUY');
     const totalInvestido = transacoesCompra.reduce((acc, transacao) => acc += (transacao.quantity * transacao.price), 0);
     const quantidadeInvestida = transacoesCompra.reduce((acc, transacoes) => acc += transacoes.quantity, 0)
-    const quantidadeCompra = transacoesCompra.reduce((acc, transacionBuy) => acc += transacionBuy.quantity, 0);
     const quantidadeVenda = transacoes.filter(transacao => transacao.operation === 'SELL').reduce((acc, transacionSell) => acc += transacionSell.quantity, 0);
 
-    const quantidadeAtualizada = quantidadeCompra - quantidadeVenda;
+    const quantidadeAtualizada = quantidadeInvestida - quantidadeVenda;
     const precoMedio = totalInvestido / quantidadeInvestida;
     const {ticker, type } = transacoesCompra[0]; 
     const precoAtual = (quantidadeAtualizada * currentMarketPrices[ticker]);
