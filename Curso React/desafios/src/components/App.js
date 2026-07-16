@@ -1,122 +1,112 @@
 import { useState } from "react";
+import { HiOutlineX } from "react-icons/hi";
 
 export default function App() {
   return (
     <div>
-      <FormCheckout />
+      <GeradorFatura />
     </div>
   ); 
 }
 
-function FormCheckout() {
-  const [dadosCompra, setDadosCompra] = useState({ tipoProduto: '', nome: '', email: '', cep: '', rua: '', numero: '', frequencia: '', termos: false })
+function GeradorFatura() {
+  const [isModal, setIsModal] = useState(false);
+  const [listaClientes, setListaClientes] = useState([]);
+
   
-  function submitForm(e) {
-    e.preventDefault(); 
-    let dadosCompraFinal = { tipoProduto: dadosCompra.tipoProduto, nome: dadosCompra.nome, email: dadosCompra.email };
-
-    if (dadosCompra.nome.trim() === "" || dadosCompra.email.trim() === "") return alert('Os campos NOME e EMAIL não podem ficar vázio');
-    
-    if (dadosCompra.tipoProduto === 'fisico') {
-      if (dadosCompra.cep.length !== 8) return alert('CEP inválido');
-      if (dadosCompra.numero.length === 0 || dadosCompra.rua.length === 0) return alert('Os campos de endereço não podem ficar vázio, digite valores válidos!');
-      dadosCompraFinal = {...dadosCompraFinal, cep: dadosCompra.cep, numero: dadosCompra.numero, rua: dadosCompra.rua};
-    }
-
-    if (dadosCompra.tipoProduto === 'digital') {
-      if (!dadosCompra.termos) return alert('Aceite os nossos termos de uso');
-      if (dadosCompra.frequencia.trim() === '') return alert('Escolha a frequência da cobrança');
-      dadosCompraFinal = {...dadosCompraFinal, termos: dadosCompra.termos, frequencia: dadosCompra.frequencia};
-    }
-
-    alert('Compra finalizada');
-    console.log(dadosCompraFinal);
-    dadosCompraFinal = { tipoProduto: dadosCompra.tipoProduto, nome: dadosCompra.nome, email: dadosCompra.email };
-    setDadosCompra({ tipoProduto: '', nome: '', email: '', cep: '', rua: '', numero: '', frequencia: '', termos: false });
+  function novaFatura(fatura, nomeCliente) {
+    setListaClientes(clientes => clientes.length > 0 ? clientes.map(cliente => cliente.nome === nomeCliente ? {...cliente, listaFaturas: [...cliente.listaFaturas, fatura], valorPagar: cliente.valorPagar + fatura.valor} : cliente) : [{nome: nomeCliente, listaFaturas: [fatura], valorPagar: fatura.valor}])
   }
+  console.log(listaClientes);
   
-  function onChange(e) {  
-    const { name, value, type, checked } = e.target;
-  
-    const valorAtualizado = type === 'checkbox' ? checked : value;
+  return <div className="container">
+    <Header setIsModal={setIsModal} />
+    { isModal && <FormFatura setIsModal={setIsModal} isModal={isModal} onAdicionarFatura={novaFatura} />}
+    <ListaFaturas />
+  </div>
+}
 
-    setDadosCompra(produtos => ({...produtos, [name]: valorAtualizado}))
-    console.log(dadosCompra);
-  } 
+function Header({setIsModal}) {
+  return (
+    <header>
+      <h1 className="titulo">Gerador de Fatura</h1>
+      <button className="btn-abrir-modal" onClick={() => setIsModal(true)}>Cadastrar Fatura</button>
+    </header>
+  );
+
+}
+function FormFatura({setIsModal, isModal, onAdicionarFatura}) {
+
+  const [fatura, setFatura] = useState({nome: '', descricao: '', quantidade: 1, valor: ''});
+
+  function pegandoDadosInput(e) {
+    const { name, value } = e.target;
+
+    setFatura(dados => ({...dados, [name]: value}));
+  }
+
+
+  function cadastrarFatura(e) {
+    e.preventDefault();
+
+    fatura.valor = Number(fatura.valor);
+
+    if (fatura.nome.trim() === "" || fatura.descricao.trim() === "") return alert("Os campos não podem ficar vázio!");
+    if (fatura.valor < 0) return alert("Digite um valor de serviço válido");
+
+    onAdicionarFatura(fatura, fatura.nome)
+    alert("Fatura gerada com sucesso!")
+    setIsModal(false);
+  }
 
   return (
-    <div className='container'>
-      <div className='area__titulo'>
-        <h2>Finalizando Compra</h2>
-        <p>Completo os campos abaixo para finalizar a compra!</p>
-      </div>
+    <div className="sombra">
+      <form className="form-fatura" onSubmit={cadastrarFatura}>
+        <h3 className="titulo-form">Cadastro de Fatura</h3>
 
-      <form onSubmit={submitForm} >
-        <div className='area__input'>
-          <label htmlFor="tipoProduto">Tipo de Produto:</label>
-          <select id='tipoProduto' name="tipoProduto" value={dadosCompra.tipoProduto} required onChange={onChange}>
-            <option value=''>Selecione um tipo de produto</option>
-            <option value='fisico'>Fisico</option>
-            <option value='digital'>Digital</option>
-          </select>
+        <div className="area-input">
+          <label htmlFor="nome">Nome:</label>
+          <input id="nome" name="nome" type="text" placeholder="Digite o nome do cliente" onChange={pegandoDadosInput} value={fatura.nome} />
         </div>
 
-        <div className='area__input'>
-          <label htmlFor='nomeCompleto'>Nome Completo</label>
-          <input type='text' placeholder="Digite o seu nome completo" name='nome' id='nomeCompleto' value={dadosCompra.nome} onChange={onChange} required />
+        <div className="area-input">
+          <label htmlFor="descricao">Descrição:</label>
+          <input id="descricao" name="descricao" type="text" placeholder="Digite a Descrição do Serviço: " onChange={pegandoDadosInput} value={fatura.descricao} />
         </div>
 
-        <div className="area__input">
-          <label htmlFor='email'>Email:</label>
-          <input type='email' name='email' required placeholder="usuario@gmail.com" onChange={onChange} value={dadosCompra.email} />
+        <div className="area-input">
+          <label htmlFor="quantidade">Quantidade:</label>
+          <input id="quantidade" name="quantidade" type="number" placeholder="1" onChange={pegandoDadosInput} min={1} value={fatura.quantidade} />
         </div>
 
-        { dadosCompra.tipoProduto === 'fisico' && <ProdutoFisico onChange={onChange} dadosCompra={dadosCompra} />}
-        {dadosCompra.tipoProduto === 'digital' && <ProdutoDigital onChange={onChange} dadosCompra={dadosCompra} />}
+        <div className="area-input">
+          <label htmlFor="valor">Valor:</label>
+          <input id="valor" name="valor" type="text" placeholder="Digite o valor do serviço: R$ 20,00" onChange={pegandoDadosInput} value={fatura.valor} />
+        </div>
 
-        <button className='btn__finalizar-compra'>Finalizar Compra</button>
+        <button className="btn-form-fatura">Gerar Fatura</button>
+
+
+        <button className="fechar-form-fatura"value={isModal} onClick={() => setIsModal(false)}><HiOutlineX /></button>
       </form>
     </div>
   );
 }
 
-function ProdutoFisico({onChange, dadosCompra}) {
+function ListaFaturas() {
   return (
-    <div>
-      <div className='area__input'>
-        <label htmlFor="cep">CEP:</label>
-        <input type='text' name='cep' id='cep' placeholder="00000-000" onChange={onChange} value={dadosCompra.cep} />
-      </div>
-
-      <div className='area__input'>
-        <label htmlFor="rua">Rua:</label>
-        <input type='text' name='rua' id='rua' placeholder="Rua de cima" onChange={onChange} value={dadosCompra.rua} />
-      </div>
-
-      <div className='area__input'>
-        <label htmlFor="numero">Número:</label>
-        <input type='text' name='numero' id='numero' placeholder="7" onChange={onChange} value={dadosCompra.numero} />
-      </div>
-
-    </div>
+    <ul className="lista-faturas">
+        <Fatura fatura={{ nome: "Adriano", quantidade: 2, descricao: "Limpeza do Computador", valor: 20 }} />
+    </ul>
   );
 }
 
-function ProdutoDigital({onChange, dadosCompra}) {
-  return (
+function Fatura({fatura}) {
+  return <li>
     <div>
-      <div className='area__input'>
-        <label htmlFor="frequencia">Frequência da cobrança:</label>
-        <select name='frequencia' onChange={onChange} value={dadosCompra.frequencia}>
-          <option value=''>Escolha a Frequência da cobrança</option>
-          <option value='mensal'>Mensal</option>
-          <option value='anual'>Anual</option>
-        </select> 
-      </div>
-      <div className='area__termos-uso'>
-        <span>Aceita os termos de uso:</span>
-        <input type='checkbox' name='termos' checked={dadosCompra.termos} required  onChange={onChange}/>
-      </div>
+      <p>Nome do Cliente: {fatura.nome}</p>
+      <p>Produto Solictado: {fatura.descricao}</p>
+      <p>Quantidade: {fatura.quantidade }</p>
     </div>
-  );
+  </li>
 }
