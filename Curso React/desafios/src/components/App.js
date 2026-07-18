@@ -13,10 +13,12 @@ export default function App() {
 }
 
 function GeradorFatura() {
+  const [nomePesquisado, setNomePesquisado] = useState('');
   const [isModal, setIsModal] = useState(false);
-  const [listaClientes, setListaClientes] = useState([{ id: 1, faturas: [{nome: 'Adriano', descricao: 'Manutenção', valor: 20}], valorTotal: 20 }]);
+  const [listaClientes, setListaClientes] = useState([]);
   const [mostrarMaisInfo, setMostrarMaisInfo] = useState(null);
-  const [atualizarOuCadastrar, setAtualizarOuCadastrar] = useState('cadastrar');
+  const [dadosAtualizar, setDadosAtualizar] = useState(null);
+  
 
   function mostrarMaisInfoFatura(idSelecionado) {
     setMostrarMaisInfo(id => id === idSelecionado ? null : idSelecionado);
@@ -27,19 +29,36 @@ function GeradorFatura() {
   }
   
   function adicionarNovaFaturaCliente(idCliente, fatura) {
-    setListaClientes(clientes => clientes.map(cliente => cliente.id === idCliente ? {...cliente, faturas: [...cliente.faturas, fatura], valorTotal: cliente.valor + fatura.valor } : cliente));
-  }
-
-  function moodCadastrarOuAtualizarFatura(mood = 'cadastrar', abrirModal = true) {
-    setIsModal(abrirModal);
-    setAtualizarOuCadastrar(mood);
+    setListaClientes(clientes => clientes.map(cliente => cliente.id === idCliente ? {...cliente, faturas: [...cliente.faturas, fatura], valorTotal: cliente.valorTotal + (fatura.valor * fatura.quantidade) } : cliente));
   }
 
   return <div className="container">
-    <Header moodCadastrarOuAtualizarFatura={moodCadastrarOuAtualizarFatura} />
+    <Header onIsModal={setIsModal} />
 
-    { isModal && <FormFatura setIsModal={setIsModal} isModal={isModal} onCadastrarFatura={novaFatura} onAdicionarFatura={adicionarNovaFaturaCliente} />}
+    { isModal && <FormFatura setIsModal={setIsModal} isModal={isModal} onCadastrarFatura={novaFatura} onAdicionarFatura={adicionarNovaFaturaCliente} dadosAtualizar={dadosAtualizar} onDadosAtualizar={setDadosAtualizar} />}
     
-    <ListaFaturas listaClientes={listaClientes} mostrarMaisInfo={mostrarMaisInfo} onMostrarMaisInfo={mostrarMaisInfoFatura} />
+    <CampoComplementar listaClientes={listaClientes} />
+
+    <ListaFaturas listaClientes={lis} mostrarMaisInfo={mostrarMaisInfo} onMostrarMaisInfo={mostrarMaisInfoFatura} onIsModal={setIsModal} onDadosAtualizar={setDadosAtualizar} />
+    
   </div>
+}
+
+function CampoComplementar({ listaClientes }) {
+  const valorTotalFaturasClientes = listaClientes.reduce((acc, clientes, i) => acc += clientes.valorTotal ,0);
+  const quantidadeFaturasGeradas = listaClientes.length;
+
+  return ( 
+    <div className="area-dados-complementar">
+      <div className="area-dados">
+        <p className="texto-dados"> Valor Total das Faturas:
+          <span className="valor-total-fatura">R$ {valorTotalFaturasClientes}</span></p>
+        <p className="texto-dados">Quantidade Faturas geradas <span className="quantidade">{quantidadeFaturasGeradas}</span> Faturas</p>
+      </div>
+
+      <div className="area-pesquisa">
+        <input type='text' className="search" placeholder="digite o nome do cliente que deseja buscar" value={nomePesquisado} onChange={buscandoNome} />  
+      </div>
+    </div>
+  )
 }

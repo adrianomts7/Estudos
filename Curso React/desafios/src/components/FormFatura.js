@@ -2,36 +2,40 @@ import { useState } from "react";
 import { HiOutlineX } from "react-icons/hi";
 
 export default 
-function FormFatura({setIsModal, isModal, onCadastrarFatura, onAdicionarFatura}) {
+function FormFatura({setIsModal, isModal, onCadastrarFatura, onAdicionarFatura, dadosAtualizar, onDadosAtualizar }) {
 
-  const [fatura, setFatura] = useState({id: crypto.randomUUID() ,nome: '', descricao: '', quantidade: 1, valor: ''});
+  const [fatura, setFatura] = useState({id: crypto.randomUUID() ,nome: dadosAtualizar?.nome || '', descricao: '', quantidade: 1, valor: ''});
 
   function pegandoDadosInput(e) {
     const { name, value } = e.target;
 
     setFatura(dados => ({...dados, [name]: value}));
   }
-
-  function adicionarMaisUmaFatura(e) {
-
-  }
-
-  function cadastrarFatura(e) {
+  
+  function enviarForm(e) {
     e.preventDefault();
-
+    
     fatura.valor = Number(fatura.valor);
-
+    
     if (fatura.nome.trim() === "" || fatura.descricao.trim() === "") return alert("Os campos não podem ficar vázio!");
     if (fatura.valor < 0) return alert("Digite um valor de serviço válido");
 
-    onAdicionarFatura(fatura, fatura.id)
-    alert("Fatura gerada com sucesso!")
+    if (dadosAtualizar) {
+      onAdicionarFatura(dadosAtualizar.id, fatura);
+      alert(`Nova Fatura adicionada com sucesso ao cliente ${fatura.nome}`)
+      onDadosAtualizar(null);
+    } else {
+      console.log(fatura.id);
+      onCadastrarFatura(fatura, fatura.id)
+      alert("Fatura gerada com sucesso!")
+    }
+
     setIsModal(false);
   }
 
   return (
     <div className="sombra">
-      <form className="form-fatura" onSubmit={cadastrarFatura}>
+      <form className="form-fatura" onSubmit={enviarForm}>
         <h3 className="titulo-form">Cadastro de Fatura</h3>
 
         <div className="area-input">
@@ -56,8 +60,7 @@ function FormFatura({setIsModal, isModal, onCadastrarFatura, onAdicionarFatura})
 
         <button className="btn-form-fatura">Gerar Fatura</button>
 
-
-        <button className="fechar-form-fatura"value={isModal} onClick={() => setIsModal(false)}><HiOutlineX /></button>
+        <button className="fechar-form-fatura" onClick={() => setIsModal(false)}><HiOutlineX /></button>
       </form>
     </div>
   );

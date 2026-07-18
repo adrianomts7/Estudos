@@ -1,5 +1,10 @@
 
-export default function Fatura({fatura, onMostrarMaisInfo, mostrarMaisInfo}) {
+export default function Fatura({fatura, onMostrarMaisInfo, mostrarMaisInfo, onIsModal, onDadosAtualizar}) {
+  function moodAdicionarNovaFatura(id, nome) {
+   onIsModal(true);
+   const dados = { id: id, nome: nome }
+   onDadosAtualizar(dados);
+  }
 
   return <li style={mostrarMaisInfo === fatura.id ? { border: '3px solid var(--verde)', padding: '2rem 0.8rem'} : {}}>
     <div>
@@ -15,7 +20,7 @@ export default function Fatura({fatura, onMostrarMaisInfo, mostrarMaisInfo}) {
      
       <div className="area-butoes-fatura">
         <button className="btn-mostrar-mais" onClick={() => onMostrarMaisInfo(fatura.id)}>{ mostrarMaisInfo ? "Ocultar Infos" : "Mostrar Infos" }</button>
-        <button className="btn-adicionar-nova-fatura" >Adicionar Nova Fatura para {fatura.faturas[0].nome}</button>
+        <button className="btn-adicionar-nova-fatura" onClick={() => moodAdicionarNovaFatura(fatura.id, fatura.faturas[0].nome)} >Adicionar Nova Fatura para {fatura.faturas[0].nome}</button>
       </div>
     </div>
   </li>
