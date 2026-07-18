@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+:root {
+  --cinza-padrao: #f1f3f5;
+  --cinza-escuro: #212529;
+  --azul-padrao: #1c7ed6;
+  --verde: #37b24d;
+  --amarelo: #f59f00;
+}
+
 html {
   font-size: 62.5%;
 }
@@ -11,7 +19,7 @@ html {
 body {
   font-family: sans-serif;
   font-size: 1.5rem;
-  background-color: #343a40 ;
+  background-color: var(--azul-padrao);
 }
 
 .container {
@@ -34,22 +42,22 @@ button {
   font-weight: bolder;
   border: none;
   cursor: pointer;
+  border-radius: 100vw;
 }
 
 .btn-abrir-modal {
-  width: 20rem;
+  width: 23rem;
   padding: 1rem;
-  color: #ebfbee;
+  color: var(--cinza-padrao);
   font-size: 1.7rem;
-  background-color: #343a40;
-  border-radius: 100vw;
-  outline: 4px solid #ebfbee;
+  background-color: var(--azul-padrao);
+  outline: 4px solid var(--cinza-padrao);
 }
 
 .btn-abrir-modal:hover {
-  background-color: #ebfbee;
+  background-color: var(--cinza-padrao);
   outline: none;
-  color: #343a40;
+  color: var(--azul-padrao);
 }
 
 .titulo {
@@ -86,7 +94,7 @@ button {
 }
 
 .titulo-form {
-  color: #2b8a3e;
+  color: var(--verde);
   text-align: center;
   margin-bottom: 2rem;
   font-size: 1.8rem;
@@ -113,7 +121,6 @@ input:focus {
   margin: 1rem auto;
   background-color: #2b8a3e;
   color: #f4f4f4;
-  border-radius: 100vw;
 }
 
 .btn-form-fatura:hover {
@@ -139,10 +146,98 @@ input:focus {
 }
 
 .lista-faturas {
-  padding: 1rem 0.8rem;
-  background-color: #ebfbee;
+  padding: 1.2rem 0.8rem;
+  background-color: var(--cinza-padrao);
+  color: var(--cinza-escuro);
+  border-radius: 10px;
+  font-weight: 500;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  overflow-y: scroll;
 }
 
 li {
   list-style: none;
+  margin-bottom: 2rem;
+  padding: 1rem  0.5rem;
 }
+
+.mensagem-fatura-vazia {
+  text-align: center;
+  color: #c92a2a;
+  font-size: 1.8rem;
+}
+
+.area-faturas {
+  font-size: 1.6rem;
+  margin-bottom: 3rem;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nome-cliente {
+  font-size: 1.7rem;
+  margin-bottom: 1.2rem;
+  color: #000;
+  font-weight: 500;
+}
+
+.valor {
+  color: var(--verde);
+  font-weight: 600;
+}
+
+.valor-total-fatura {
+  color: var(--verde);
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+
+.area-butoes-fatura {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.area-dados-fatura {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+}
+
+.area-dados {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.btn-mostrar-mais {
+  background-color: var(--amarelo);
+  color: var(--cinza-padrao);
+  padding: 0.8rem 5rem;
+}
+
+.btn-mostrar-mais:hover {
+  color: var(--amarelo);
+  outline: 4px solid var(--amarelo);
+  background-color: var(--cinza-padrao);
+}
+
+.btn-adicionar-nova-fatura {
+  background-color: var(--azul-padrao);
+  color: var(--cinza-padrao);
+  padding: 1rem 2rem;
+}
+
+.btn-adicionar-nova-fatura:hover {
+  color: var(--azul-padrao);
+  outline: 4px solid var(--azul-padrao);
+  background-color: var(--cinza-padrao);  
+}
+
