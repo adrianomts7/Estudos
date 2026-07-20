@@ -14,27 +14,31 @@ function FormFatura({setIsModal, isModal, onCadastrarFatura, onAdicionarFatura, 
   
   function enviarForm(e) {
     e.preventDefault();
-    
-    fatura.valor = Number(fatura.valor);
-    
-    if (fatura.nome.trim() === "" || fatura.descricao.trim() === "") return alert("Os campos não podem ficar vázio!");
-    if (fatura.valor < 0) return alert("Digite um valor de serviço válido");
+        
+    const novaFatura = {
+      ...fatura,
+      valor: Number(fatura.valor),
+      quantidade: Number(fatura.quantidade)
+    }
+
+    if (novaFatura.nome.trim() === "" || novaFatura.descricao.trim() === "") return alert("Os campos não podem ficar vázio!");
+    if (novaFatura.valor <= 0) return alert("Digite um valor de serviço válido");
 
     if (!dadosAcao){
-      onCadastrarFatura(fatura, fatura.id);
+      onCadastrarFatura(novaFatura, novaFatura.id);
       alert("Fatura gerada com sucesso!");
       setIsModal(false);
       return;
     }
     if (dadosAcao.acao === 'adicionar') {
-      onAdicionarFatura(dadosAcao.id, fatura);
-      alert(`Nova Fatura adicionada com sucesso ao cliente ${fatura.nome}`)
+      onAdicionarFatura(dadosAcao.id, novaFatura);
+      alert(`Nova Fatura adicionada com sucesso ao cliente ${novaFatura.nome}`)
       onDadosAcaoForm(null);
     } 
     
     if (dadosAcao.acao === 'editar') {
-      onEditarFatura(dadosAcao.idCliente, dadosAcao.idFatura, fatura, dadosAcao.dadosFatura.valor);
-      alert(` Fatura Editada com sucesso do cliente ${fatura.nome}`)
+      onEditarFatura(dadosAcao.idCliente, dadosAcao.idFatura, novaFatura, (dadosAcao.dadosFatura.valor * dadosAcao.dadosFatura.quantidade));
+      alert(` Fatura Editada com sucesso do cliente ${novaFatura.nome}`)
       onDadosAcaoForm(null);
     }
      
@@ -44,7 +48,7 @@ function FormFatura({setIsModal, isModal, onCadastrarFatura, onAdicionarFatura, 
   return (
     <div className="sombra">
       <form className="form-fatura" onSubmit={enviarForm}>
-        <h3 className="titulo-form">Cadastro de Fatura</h3>
+        <h3 className="titulo-form">{ dadosAcao?.acao === 'editar' ? 'Editar Fatura' : 'Cadastro de Fatura'}</h3>
 
         <div className="area-input">
           <label htmlFor="nome">Nome:</label>
@@ -63,10 +67,10 @@ function FormFatura({setIsModal, isModal, onCadastrarFatura, onAdicionarFatura, 
 
         <div className="area-input">
           <label htmlFor="valor">Valor:</label>
-          <input id="valor" name="valor" type="text" placeholder="Digite o valor do serviço: R$ 20,00" onChange={pegandoDadosInput} value={fatura.valor} />
+          <input id="valor" name="valor" type="number" min={0} step={0.1} onChange={pegandoDadosInput} value={fatura.valor} />
         </div>
 
-        <button className="btn-form-fatura">Gerar Fatura</button>
+        <button className="btn-form-fatura">{ dadosAcao?.acao === 'editar' ? 'Editar Fatura' : 'Gerar Fatura'}</button>
 
         <button className="fechar-form-fatura" onClick={() => setIsModal(false)}><HiOutlineX /></button>
       </form>

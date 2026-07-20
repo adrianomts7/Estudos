@@ -40,8 +40,8 @@ function DivDadosFatura({ fatura, onMoodEditarFatura, onApagarFatura }) {
       <div className="area-dados">
       { fatura.faturas.map((fatura, i) => 
 
-        <div className="area-dados-botoes">
-          <div className="dados-fatura" key={fatura.id} >
+        <div className="area-dados-botoes" key={fatura.id}>
+          <div className="dados-fatura" >
              
             <p>{(i + 1)}º  Descrição: {fatura.descricao}</p>  
             <p>Quantidade: {fatura.quantidade}</p>
@@ -51,7 +51,7 @@ function DivDadosFatura({ fatura, onMoodEditarFatura, onApagarFatura }) {
             quantidadeItensFatura > 1 && (
               <div className="botoes-fatura-acoes">
                   <button className="btn-fatura-editar" onClick={() => onMoodEditarFatura(idCliente, fatura.id, fatura)}>Editar Fatura</button>
-                  <button className="btn-fatura-apagar" onClick={() => onApagarFatura(idCliente, fatura.id, fatura.valor)}>Apagar Fatura</button>
+                  <button className="btn-fatura-apagar" onClick={() => onApagarFatura(idCliente, fatura.id, (fatura.valor * fatura.quantidade))}>Apagar Fatura</button>
               </div>
             )
           } 

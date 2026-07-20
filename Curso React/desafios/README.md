@@ -1,70 +1,131 @@
-# Getting Started with Create React App
+# 🧾 Gerador de Faturas
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicação desenvolvida em **React** para gerenciamento de clientes e faturas. O sistema permite cadastrar clientes, adicionar múltiplos serviços para cada um, editar e remover faturas, além de calcular automaticamente os valores totais.
 
-## Available Scripts
+O projeto foi desenvolvido com o objetivo de praticar conceitos fundamentais do React, como gerenciamento de estado, componentização, formulários controlados e atualização imutável de dados.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Demonstração
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+> Adicione aqui um GIF da aplicação em funcionamento.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Ou acesse a demonstração online:
 
-### `npm test`
+**Demo:** https://seu-projeto.vercel.app
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## ✨ Funcionalidades
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Cadastro de clientes.
+- Cadastro de múltiplas faturas para um mesmo cliente.
+- Edição e remoção de faturas.
+- Exibição detalhada dos serviços de cada cliente.
+- Cálculo automático do valor total por cliente.
+- Cálculo do valor total geral das faturas.
+- Validação dos dados do formulário.
+- Interface organizada em componentes reutilizáveis.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🛠 Tecnologias Utilizadas
 
-### `npm run eject`
+- React
+- JavaScript (ES6+)
+- HTML5
+- CSS3
+- React Icons
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📚 Conceitos Praticados
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Durante o desenvolvimento deste projeto foram utilizados conceitos importantes do ecossistema React, como:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Componentização
+- useState
+- Props
+- Eventos
+- Formulários controlados
+- Renderização condicional
+- Renderização de listas
+- Atualização imutável de objetos e arrays
+- CRUD (Create, Read, Update e Delete)
+- Manipulação de estruturas de dados utilizando `map`, `filter` e `reduce`
+- Geração de identificadores únicos com `crypto.randomUUID()`
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🏗 Estrutura dos Dados
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+O estado principal da aplicação é composto por uma lista de clientes, onde cada cliente possui um conjunto de faturas associadas.
 
-### Code Splitting
+```json
+[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "valorTotal": 3000,
+    "faturas": [
+      {
+        "id": "987fcdeb-51a2-43d7-9012-345678912345",
+        "nome": "Empresa X",
+        "descricao": "Desenvolvimento Front-End",
+        "quantidade": 1,
+        "valor": 3000
+      }
+    ]
+  }
+]
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Essa estrutura permite manter a relação entre clientes e suas respectivas faturas, facilitando operações de cadastro, edição, remoção e cálculo dos valores totais.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## ▶️ Como executar o projeto
 
-### Making a Progressive Web App
+Clone o repositório:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+git clone https://github.com/seu-usuario/gerador-faturas-react.git
+```
 
-### Advanced Configuration
+Acesse a pasta:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+cd gerador-faturas-react
+```
 
-### Deployment
+Instale as dependências:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+npm install
+```
 
-### `npm run build` fails to minify
+Execute a aplicação:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm run dev
+```
+
+---
+
+## 📈 Melhorias Futuras
+
+- Persistência de dados utilizando Local Storage.
+- Integração com uma API.
+- Exportação das faturas em PDF.
+- Busca de clientes.
+- Filtro de faturas.
+- Formatação monetária.
+- Migração para TypeScript.
+
+---
+
+## 👨‍💻 Autor
+
+**Adriano Mateus**
+
+- GitHub: https://[github.com/adrianomts7](https://github.com/adrianomts7)
+- LinkedIn: https://linkedin.com/in/[adrianomts7](https://www.linkedin.com/in/adrianomts7/)

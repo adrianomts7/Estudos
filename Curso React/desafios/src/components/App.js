@@ -14,7 +14,7 @@ export default function App() {
 
 function GeradorFatura() {
   const [isModal, setIsModal] = useState(false);
-  const [listaClientes, setListaClientes] = useState([{ id: 2, valorTotal: 200, faturas: [{id: 2, nome: 'Adriano', descricao: 'Manutenção Computadores', valor: 10, quantidade: 20}, {id: 4, nome: 'Adriano', descricao: 'Manutenção Computadores', valor: 10, quantidade: 200}] }]);
+  const [listaClientes, setListaClientes] = useState([]);
   const [mostrarMaisInfo, setMostrarMaisInfo] = useState(null);
   const [dadosAcao, setDadosAcao] = useState(null);
 
@@ -35,7 +35,7 @@ function GeradorFatura() {
   }
 
   function editarFaturaCliente(idCliente, idFatura, faturaEditada, valorAntigo) {
-    setListaClientes(clientes => clientes.map(cliente => cliente.id === idCliente ? {...cliente, faturas: cliente.faturas.map(fatura => fatura.id === idFatura ? { faturaEditada } : fatura), valorTotal: (cliente.valorTotal - valorAntigo) + (faturaEditada.valor * faturaEditada.quantidade)} : cliente));
+    setListaClientes(clientes => clientes.map(cliente => cliente.id === idCliente ? {...cliente, faturas: cliente.faturas.map(fatura => fatura.id === idFatura ? { ...faturaEditada } : fatura), valorTotal: (cliente.valorTotal - valorAntigo) + (faturaEditada.valor * faturaEditada.quantidade)} : cliente));
   }
 
   return <div className="container">
@@ -52,7 +52,7 @@ function GeradorFatura() {
 
 function CampoComplementar({ listaClientes }) {
   const valorTotalFaturasClientes = listaClientes.reduce((acc, clientes, i) => acc += clientes.valorTotal ,0);
-  const quantidadeFaturasGeradas = listaClientes.length;
+  const quantidadeFaturasGeradas = listaClientes.reduce((acc, clientes) => acc += clientes.faturas.length, 0);
 
   return ( 
     <div className="area-dados-complementar">
