@@ -1,9 +1,13 @@
 
-export default function Fatura({fatura, onMostrarMaisInfo, mostrarMaisInfo, onIsModal, onDadosAtualizar}) {
+export default function Fatura({fatura, onMostrarMaisInfo, mostrarMaisInfo, onIsModal, onDadosAcaoForm, onApagarFatura}) {
   function moodAdicionarNovaFatura(id, nome) {
    onIsModal(true);
-   const dados = { id: id, nome: nome }
-   onDadosAtualizar(dados);
+   onDadosAcaoForm({ id: id, nome: nome, acao: 'adicionar' });
+  }
+
+  function moodEditarFatura(idCliente, idFatura, dadosFatura) {
+    onIsModal(true);
+    onDadosAcaoForm({idCliente ,idFatura, dadosFatura, acao: 'editar' })
   }
 
   return <li style={mostrarMaisInfo === fatura.id ? { border: '3px solid var(--verde)', padding: '2rem 0.8rem'} : {}}>
@@ -16,7 +20,7 @@ export default function Fatura({fatura, onMostrarMaisInfo, mostrarMaisInfo, onIs
         <p>Valor Total: <span className="valor-total-fatura">R$ {fatura.valorTotal}</span></p>
       </div>
       
-      { mostrarMaisInfo === fatura.id && <DivDadosFatura fatura={fatura} /> }
+      { mostrarMaisInfo === fatura.id && <DivDadosFatura fatura={fatura} onMoodEditarFatura={moodEditarFatura} onApagarFatura={onApagarFatura}  /> }
      
       <div className="area-butoes-fatura">
         <button className="btn-mostrar-mais" onClick={() => onMostrarMaisInfo(fatura.id)}>{ mostrarMaisInfo ? "Ocultar Infos" : "Mostrar Infos" }</button>
@@ -26,18 +30,34 @@ export default function Fatura({fatura, onMostrarMaisInfo, mostrarMaisInfo, onIs
   </li>
 }
 
-function DivDadosFatura({ fatura }) {
+function DivDadosFatura({ fatura, onMoodEditarFatura, onApagarFatura }) {
+  const quantidadeItensFatura = fatura.faturas.length;
+  const idCliente = fatura.id;
+
   return (  
     <div className="area-dados-fatura">
       <p className="titulo-descricao-produtos">Descrição dos Produtos Solicitados:</p>
+      <div className="area-dados">
       { fatura.faturas.map((fatura, i) => 
-        <div className="area-dados" key={fatura.id} >
-           
-          <p>{(i + 1)}º  Descrição: {fatura.descricao}</p>  
-          <p>Quantidade: {fatura.quantidade}</p>
-          <p>Valor: <span className="valor">R$ {fatura.valor}</span></p>
-        </div> 
+
+        <div className="area-dados-botoes">
+          <div className="dados-fatura" key={fatura.id} >
+             
+            <p>{(i + 1)}º  Descrição: {fatura.descricao}</p>  
+            <p>Quantidade: {fatura.quantidade}</p>
+            <p>Valor: <span className="valor">R$ {fatura.valor}</span></p>
+          </div>
+          {
+            quantidadeItensFatura > 1 && (
+              <div className="botoes-fatura-acoes">
+                  <button className="btn-fatura-editar" onClick={() => onMoodEditarFatura(idCliente, fatura.id, fatura)}>Editar Fatura</button>
+                  <button className="btn-fatura-apagar" onClick={() => onApagarFatura(idCliente, fatura.id, fatura.valor)}>Apagar Fatura</button>
+              </div>
+            )
+          } 
+        </div>
       )}
+      </div>
     </div>
   )
 }

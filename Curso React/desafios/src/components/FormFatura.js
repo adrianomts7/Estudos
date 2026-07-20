@@ -2,9 +2,9 @@ import { useState } from "react";
 import { HiOutlineX } from "react-icons/hi";
 
 export default 
-function FormFatura({setIsModal, isModal, onCadastrarFatura, onAdicionarFatura, dadosAtualizar, onDadosAtualizar }) {
+function FormFatura({setIsModal, isModal, onCadastrarFatura, onAdicionarFatura, dadosAcao, onDadosAcaoForm, onEditarFatura }) {
 
-  const [fatura, setFatura] = useState({id: crypto.randomUUID() ,nome: dadosAtualizar?.nome || '', descricao: '', quantidade: 1, valor: ''});
+  const [fatura, setFatura] = useState({id: dadosAcao?.idFatura || crypto.randomUUID() ,nome: dadosAcao?.nome || dadosAcao?.dadosFatura?.nome, descricao:  dadosAcao?.dadosFatura?.descricao || '', quantidade: dadosAcao?.dadosFatura?.quantidade || 1 , valor: dadosAcao?.dadosFatura?.valor || ''});
 
   function pegandoDadosInput(e) {
     const { name, value } = e.target;
@@ -20,16 +20,24 @@ function FormFatura({setIsModal, isModal, onCadastrarFatura, onAdicionarFatura, 
     if (fatura.nome.trim() === "" || fatura.descricao.trim() === "") return alert("Os campos não podem ficar vázio!");
     if (fatura.valor < 0) return alert("Digite um valor de serviço válido");
 
-    if (dadosAtualizar) {
-      onAdicionarFatura(dadosAtualizar.id, fatura);
-      alert(`Nova Fatura adicionada com sucesso ao cliente ${fatura.nome}`)
-      onDadosAtualizar(null);
-    } else {
-      console.log(fatura.id);
-      onCadastrarFatura(fatura, fatura.id)
-      alert("Fatura gerada com sucesso!")
+    if (!dadosAcao){
+      onCadastrarFatura(fatura, fatura.id);
+      alert("Fatura gerada com sucesso!");
+      setIsModal(false);
+      return;
     }
-
+    if (dadosAcao.acao === 'adicionar') {
+      onAdicionarFatura(dadosAcao.id, fatura);
+      alert(`Nova Fatura adicionada com sucesso ao cliente ${fatura.nome}`)
+      onDadosAcaoForm(null);
+    } 
+    
+    if (dadosAcao.acao === 'editar') {
+      onEditarFatura(dadosAcao.idCliente, dadosAcao.idFatura, fatura, dadosAcao.dadosFatura.valor);
+      alert(` Fatura Editada com sucesso do cliente ${fatura.nome}`)
+      onDadosAcaoForm(null);
+    }
+     
     setIsModal(false);
   }
 

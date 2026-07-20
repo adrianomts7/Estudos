@@ -9,16 +9,14 @@ export default function App() {
     <div>
       <GeradorFatura />
     </div>
-  ); 
+  );  
 }
 
 function GeradorFatura() {
-  const [nomePesquisado, setNomePesquisado] = useState('');
   const [isModal, setIsModal] = useState(false);
-  const [listaClientes, setListaClientes] = useState([]);
+  const [listaClientes, setListaClientes] = useState([{ id: 2, valorTotal: 200, faturas: [{id: 2, nome: 'Adriano', descricao: 'Manutenção Computadores', valor: 10, quantidade: 20}, {id: 4, nome: 'Adriano', descricao: 'Manutenção Computadores', valor: 10, quantidade: 200}] }]);
   const [mostrarMaisInfo, setMostrarMaisInfo] = useState(null);
-  const [dadosAtualizar, setDadosAtualizar] = useState(null);
-  
+  const [dadosAcao, setDadosAcao] = useState(null);
 
   function mostrarMaisInfoFatura(idSelecionado) {
     setMostrarMaisInfo(id => id === idSelecionado ? null : idSelecionado);
@@ -32,14 +30,22 @@ function GeradorFatura() {
     setListaClientes(clientes => clientes.map(cliente => cliente.id === idCliente ? {...cliente, faturas: [...cliente.faturas, fatura], valorTotal: cliente.valorTotal + (fatura.valor * fatura.quantidade) } : cliente));
   }
 
+  function apagarFaturaCliente(idCliente, idFatura, valor) {
+    setListaClientes(clientes => clientes.map(cliente => cliente.id === idCliente ? { ...cliente, faturas: cliente.faturas.filter(fatura => fatura.id !== idFatura), valorTotal: cliente.valorTotal - valor } : cliente));
+  }
+
+  function editarFaturaCliente(idCliente, idFatura, faturaEditada, valorAntigo) {
+    setListaClientes(clientes => clientes.map(cliente => cliente.id === idCliente ? {...cliente, faturas: cliente.faturas.map(fatura => fatura.id === idFatura ? { faturaEditada } : fatura), valorTotal: (cliente.valorTotal - valorAntigo) + (faturaEditada.valor * faturaEditada.quantidade)} : cliente));
+  }
+
   return <div className="container">
     <Header onIsModal={setIsModal} />
 
-    { isModal && <FormFatura setIsModal={setIsModal} isModal={isModal} onCadastrarFatura={novaFatura} onAdicionarFatura={adicionarNovaFaturaCliente} dadosAtualizar={dadosAtualizar} onDadosAtualizar={setDadosAtualizar} />}
+    { isModal && <FormFatura setIsModal={setIsModal} isModal={isModal} onCadastrarFatura={novaFatura} onAdicionarFatura={adicionarNovaFaturaCliente} dadosAcao={dadosAcao} onDadosAcaoForm={setDadosAcao} onEditarFatura={editarFaturaCliente} />}
     
     <CampoComplementar listaClientes={listaClientes} />
 
-    <ListaFaturas listaClientes={lis} mostrarMaisInfo={mostrarMaisInfo} onMostrarMaisInfo={mostrarMaisInfoFatura} onIsModal={setIsModal} onDadosAtualizar={setDadosAtualizar} />
+    <ListaFaturas listaClientes={listaClientes} mostrarMaisInfo={mostrarMaisInfo} onMostrarMaisInfo={mostrarMaisInfoFatura} onIsModal={setIsModal} onDadosAcaoForm={setDadosAcao} onApagarFatura={apagarFaturaCliente} />
     
   </div>
 }
@@ -50,14 +56,10 @@ function CampoComplementar({ listaClientes }) {
 
   return ( 
     <div className="area-dados-complementar">
-      <div className="area-dados">
+      <div className="dados-fatura">
         <p className="texto-dados"> Valor Total das Faturas:
           <span className="valor-total-fatura">R$ {valorTotalFaturasClientes}</span></p>
         <p className="texto-dados">Quantidade Faturas geradas <span className="quantidade">{quantidadeFaturasGeradas}</span> Faturas</p>
-      </div>
-
-      <div className="area-pesquisa">
-        <input type='text' className="search" placeholder="digite o nome do cliente que deseja buscar" value={nomePesquisado} onChange={buscandoNome} />  
       </div>
     </div>
   )
