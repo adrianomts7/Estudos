@@ -298,7 +298,11 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watcheds }) {
 
     useEffect(function() {
       if (!title) return;
-      document.titlr = `Movie | ${title}`
+      document.title = `Movie | ${title}`
+
+      return function() {
+        document.title = 'usepopcorn';
+      }
     }, [title])
 
   return (
