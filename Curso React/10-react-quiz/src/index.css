@@ -90,6 +90,7 @@ h4 {
 }
 
 .progress {
+  width: 48rem;
   margin-bottom: 4rem;
   display: grid;
   justify-content: space-between;
