@@ -1,8 +1,7 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
-import eslintConfig from './eslint.config'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), eslintConfig],
+  plugins: [react()],
 })
