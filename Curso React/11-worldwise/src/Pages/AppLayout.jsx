@@ -1,9 +1,9 @@
-import AppLayout from '../components/AppNav';
+import AppNav from '../components/AppNav';
 
 function AppLayout() {
   return (
     <div>
-      <AppLayout /> 
+      <AppNav /> 
       <p>App</p>
     </div>
   )
